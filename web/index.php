@@ -23,7 +23,7 @@ $app->post("/addspot", function() {
 		$newMessage = $spot->create($message, $location);
 
 		if ($newMessage !== false) {
-			$newMessage->StatusCode=0;	
+			$newMessage->StatusCode=0;
 		} else {
 			$newMessage->StatusCode=403;
 			$newMessage->StatusMsg="Message exceeds character length";
@@ -39,8 +39,19 @@ $app->post("/addspot", function() {
 
 });
 
-$app->post("/addcomment/{spotId}", function($spotId) {
-	return "Comment Added to spot ID: ".$spotId;
+$app->get("/getspot/{spotId}", function($spotId) {
+	$spot=new Spots();
+	return json_encode($spot->get($spotId));
+});
+
+$app->get("/getrecentspots/{numDays}", function($numDays) {
+	$spot=new Spots();
+	return json_encode($spot->getAllRecent($numDays));
+});
+
+$app->get("/gettopspots/{numDays}", function($numDays) {
+	$spot=new Spots();
+	return json_encode($spot->getAllTop($numDays));
 });
 
 $app->post("/validate", function() {

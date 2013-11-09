@@ -16,6 +16,7 @@ class SpotsTest extends PHPUnit_Framework_TestCase
 	
 	public function testCreate() 
 	{
+		//testing case of exceeding characters
 		$spot=$this->createSpot("Too many characters in this message, haha it's gonna be hard to exceed it because I don't have a whole lot of things to type lol! Anyway I should probably go now");
 		$this->assertFalse($spot);
 
@@ -72,7 +73,7 @@ class SpotsTest extends PHPUnit_Framework_TestCase
 
 	public function testGetAllTop() 
 	{
-		var_dump($this->spots->getAllTop(3));
+		$this->assertContainsOnlyInstancesOf('stdClass', $this->spots->getAllTop(3));
 	}
 
 }

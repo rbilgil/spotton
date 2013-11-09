@@ -8,7 +8,8 @@ class RankedSpots
 	{
 		$scores=[];
 		foreach ($spots as $spot) {
-			$scores[]=self::getScore($spot);
+			$spot->score=self::getScore($spot);
+			$scores[]=$spot->score;
 		}
 
 		array_multisort($scores, $spots, SORT_DESC);

@@ -56,6 +56,9 @@ class Queries
 		$query="SELECT * FROM {$this->table} WHERE ID={$id}";
 		$bind=array();
 
-		return Database::query($query, $bind);
+		$spot = Database::query($query, $bind);
+		$spot->score=RankedSpots::getScore($spot);
+		return $spot;
+
 	}
 }
