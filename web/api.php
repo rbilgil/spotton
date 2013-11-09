@@ -8,6 +8,22 @@ use Spotton\Location;
 
 $app=new Silex\Application();
 
+
+$app->get("/getUniList", function() {
+	$location=new Location(0,0);
+	$resultMessage["universities"]=$location->getUniversityList();
+	
+	return json_encode($resultMessage);
+});
+
+$app->get("/getLocationList/{uniId}", function($uniId) {
+	$location=new Location(0,0);
+	$resultMessage["locations"]=$location->getLocationList($uniId);
+	
+	return json_encode($resultMessage);
+});
+
+
 $app->post("/addSpot", function() {
 
 	$message=$_POST["message"];
