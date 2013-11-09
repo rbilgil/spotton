@@ -9,14 +9,14 @@ use Spotton\Location;
 $app=new Silex\Application();
 
 
-$app->get("/getUniList", function() {
+$app->match("/getUniList", function() {
 	$location=new Location(0,0);
 	$resultMessage["universities"]=$location->getUniversityList();
 	
 	return json_encode($resultMessage);
 });
 
-$app->get("/getLocationList/{uniId}", function($uniId) {
+$app->match("/getLocationList/{uniId}", function($uniId) {
 	$location=new Location(0,0);
 	$resultMessage["locations"]=$location->getLocationList($uniId);
 	
@@ -79,19 +79,19 @@ $app->post("/addComment", function() {
 	return json_encode($resultMessage);
 });
 
-$app->get("/getSpot/{spotId}", function($spotId) {
+$app->match("/getSpot/{spotId}", function($spotId) {
 	$spot=new Spots();
 	$resultMessage["spots"][0]=$spot->get($spotId);
 	return json_encode($resultMessage);
 });
 
-$app->get("/getComment/{commentId}", function($commentId) {
+$app->match("/getComment/{commentId}", function($commentId) {
 	$comment=new Comments();
 	$resultMessage["comments"][0]=$comment->get($commentId);
 	return json_encode($resultMessage);
 });
 
-$app->get("/deleteSpot/{spotId}", function($spotId) {
+$app->match("/deleteSpot/{spotId}", function($spotId) {
 	$spot=new Spots();
 	$result=new stdClass;
 
@@ -105,7 +105,7 @@ $app->get("/deleteSpot/{spotId}", function($spotId) {
 	return json_encode($result);
 });
 
-$app->get("/deleteComment/{commentId}", function($commentId) {
+$app->match("/deleteComment/{commentId}", function($commentId) {
 	$comment=new Comments();
 	$result=new stdClass;
 
@@ -120,25 +120,25 @@ $app->get("/deleteComment/{commentId}", function($commentId) {
 });
 
 
-$app->get("/getLatest/{numDays}", function($numDays) {
+$app->post("/getLatest/{numDays}", function($numDays) {
 	$spot=new Spots();
 	$resultMessage["spots"]=$spot->getAllRecent($numDays);
 	return json_encode($resultMessage);
 });
 
-$app->get("/getTop/{numDays}", function($numDays) {
+$app->post("/getTop/{numDays}", function($numDays) {
 	$spot=new Spots();
 	$resultMessage["spots"]=$spot->getAllTop($numDays);
 	return json_encode($resultMessage);
 });
 
-$app->get("/getLatestComments/{spotId}", function($spotId) {
+$app->match("/getLatestComments/{spotId}", function($spotId) {
 	$comment=new Comments();
 	$resultMessage["comments"]=$comment->getAllRecent($spotId);
 	return json_encode($resultMessage);
 });
 
-$app->get("/getTopComments/{spotId}", function($spotId) {
+$app->match("/getTopComments/{spotId}", function($spotId) {
 	$comment=new Comments();
 	$resultMessage["comments"]=$comment->getAllTop($spotId);
 	return json_encode($resultMessage);
