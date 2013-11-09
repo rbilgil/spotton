@@ -65,3 +65,10 @@ function setLayout(){
 		return minW + ((score>maxW)?maxW:score);
 	});
 }
+
+function submitSpot(){
+	var m = $("#newSpott").html();
+	if(m != ""){
+		addSpot(m);
+	}
+}
