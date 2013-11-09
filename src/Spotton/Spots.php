@@ -2,7 +2,7 @@
 
 namespace Spotton;
 
-class Spots
+class Spots implements DataInterface
 {
 	/*
 	*	Creates a new Spot using given text and location, and saves it to database
@@ -10,7 +10,7 @@ class Spots
 	*	@param string $location lat/lon of Spot
 	*	@returns stdClass $spot
 	*/
-	public function newSpot($text, $location) 
+	public function new($text, Location $location) 
 	{
 
 	}
@@ -19,7 +19,7 @@ class Spots
 	*	@param int $spotID The ID number of the spot
 	*	@returns true if spot deleted successfully
 	*/
-	public function deleteSpot($spotID)
+	public function delete($spotID)
 	{
 
 	}
@@ -30,7 +30,7 @@ class Spots
 	*	@returns stdClass $spot
 	*
 	*/
-	public function getSpot($spotID)
+	public function get($spotID)
 	{
 
 	}
@@ -50,7 +50,7 @@ class Spots
 	*	@param int $numDays number of days to get spots for
 	*	@returns array $spots the array of stdClass objects for spots
 	*/
-	public function getSpots($numDays)
+	public function getAll($numDays)
 	{
 
 	}

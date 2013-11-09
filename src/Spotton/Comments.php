@@ -2,7 +2,7 @@
 
 namespace Spotton;
 
-class Comments
+class Comments implements DataInterface
 {
 	/*
 	*	Creates a new Comment using given text and location, and saves it to database
@@ -10,7 +10,7 @@ class Comments
 	*	@param string $location lat/lon of Comment
 	*	@returns stdClass $comment
 	*/
-	public function newComment($text, $location) 
+	public function new($text, Location $location) 
 	{
 
 	}
@@ -20,7 +20,7 @@ class Comments
 	*	@param int $commentID The ID number of the comment
 	*	@returns true if comment deleted successfully
 	*/
-	public function deleteComment($commentID)
+	public function delete($commentID)
 	{
 
 	}
@@ -31,7 +31,7 @@ class Comments
 	*	@returns stdClass $comment
 	*
 	*/
-	public function getComment($commentID)
+	public function get($commentID)
 	{
 
 	}
@@ -51,7 +51,7 @@ class Comments
 	*	@param int $numDays number of days to get comments for
 	*	@returns array $comments the array of stdClass objects for comments
 	*/
-	public function getComments($numDays)
+	public function getAll($numDays)
 	{
 
 	}
