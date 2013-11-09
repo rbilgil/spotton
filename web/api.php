@@ -119,9 +119,42 @@ $app->match("/deleteComment/{commentId}", function($commentId) use ($comments) {
 	return json_encode($result);
 });
 
+$app->post("/upVoteSpot/{$spotID}", function($spotID) use ($spots) {
+    
+    $uniqueID=filter_var($_POST['uniqueID'], FILTER_SANITIZE_STRING);
+    
+    $result=$spots->upVote($spotID);
+    $resultMessage=new stdClass();
+    
+    if ($result !== false) {
+        $resultMessage->StatusCode=0;
+    } else {
+        $resultMessage->StatusMsg="Couldn't upvote";
+        $resultMessage->StatusCode=999;
+    }
+    return $resultMessage;
+});
+
+$app->post("/upVoteComment/{$commentID}", function($commentID) use ($comments) {
+    
+    $uniqueID=filter_var($_POST['uniqueID'], FILTER_SANITIZE_STRING);
+    
+    $result=$comments->upVote($commentID);
+    $resultMessage=new stdClass();
+    
+    if ($result !== false) {
+        $resultMessage->StatusCode=0;
+    } else {
+        $resultMessage->StatusMsg="Couldn't upvote";
+        $resultMessage->StatusCode=999;
+    }
+    return $resultMessage;
+});
+
 
 $app->post("/getLatest/{numDays}", function($numDays) use ($spots) {
-	$resultMessage["spots"]=$spots->getAllRecent($numDays);
+        $universityID=filter_input($_POST['universityID'], FILTER_VALIDATE_INT);
+	$resultMessage["spots"]=$spots->getAllRecent($universityID, $numDays);
 	return json_encode($resultMessage);
 });
 

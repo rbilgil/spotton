@@ -68,12 +68,12 @@ class SpotsTest extends PHPUnit_Framework_TestCase
 
 	public function testGetAllRecent()
 	{
-		$this->spots->getAllRecent(3);
+		$this->spots->getAllRecent(1, 3);
 	}
 
 	public function testGetAllTop() 
 	{
-		$this->assertContainsOnlyInstancesOf('stdClass', $this->spots->getAllTop(3));
+		$this->assertContainsOnlyInstancesOf('stdClass', $this->spots->getAllTop(1, 3));
 	}
 
 }

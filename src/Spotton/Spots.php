@@ -40,22 +40,30 @@ class Spots extends Queries
 	*	@param int $numDays number of days to get Spot/Comments for
 	*	@returns array $Spot/Comments the array of stdClass objects for Spot/Comments
 	*/
-	public function getAllRecent($numDays)
+	public function getAllRecent($universityID, $numDays)
 	{
 		$dateTimeString = "-".$numDays." days";
 		$daysAgo=strtotime($dateTimeString);
 
-		$query = "SELECT * FROM {$this->table} WHERE time >= :timePeriod";
-		$bind=array(':timePeriod' => $daysAgo);
+		$query = "SELECT * FROM {$this->table} WHERE time >= :timePeriod AND uniID=:uniID";
+		$bind=array(':timePeriod' => $daysAgo, ':uniID' => $universityID);
 
 		return Database::query($query, $bind);
 	}
 
-	public function getAllTop($numDays)
+	public function getAllTop($universityID, $numDays)
 	{
-		$spots=$this->getAllRecent($numDays);
+		$spots=$this->getAllRecent($universityID, $numDays);
 
 		return Ranker::rank($spots);
 	}
+        
+        public function getNumberOfComments($spotID)
+        {
+            $query = "SELECT * FROM {$this->table} WHERE spotID = :spotID";
+            $bind=array(':spotID' => $spotID);
+            
+            return count(Database::query($query, $bind));
+        }
 	
 }
