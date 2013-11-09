@@ -9,7 +9,7 @@ use stdClass, PDO;
 *	Main purpose is to validate that the user is within the range required to be eligible to post a spot
 */
 
-class Location
+class Location extends ConnectToDB
 {
 
 	const EARTH_RADIUS=6371; //in km
@@ -80,27 +80,6 @@ class Location
 		$statement->execute(array(':id'=>$locationID, ':uniID' => $universityID));
 
 		return $statement->fetch(PDO::FETCH_OBJ);
-	}
-
-	private function connectToDB()
-	{
-		$dsn="mysql:dbname=spotton;host=localhost";
-		$username="spotton";
-		$password="quackathon";
-		
-		$connection=null;
-
-		try {
-
-			$connection=new PDO($dsn, $username, $password);
-
-		} catch (PDOException $e) {
-
-			die("Locations database connection failed!".$e->getMessage());
-			
-		}
-
-		return $connection;
 	}
 
 }

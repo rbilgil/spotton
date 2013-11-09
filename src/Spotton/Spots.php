@@ -2,57 +2,55 @@
 
 namespace Spotton;
 
-class Spots implements DataInterface
-{
-	/*
-	*	Creates a new Spot using given text and location, and saves it to database
-	*	@param string $text the Spot Text
-	*	@param string $location lat/lon of Spot
-	*	@returns stdClass $spot
-	*/
-	public function new($text, Location $location) 
-	{
-
+class Spots extends Queries {
+	
+	public function __construct($id,$spotID){
+		parent::__construct($id,"spots");
 	}
-	/*
-	*	Deletes a given spot from database using its ID
-	*	@param int $spotID The ID number of the spot
-	*	@returns true if spot deleted successfully
+	
+		/*
+	*	Creates a new Spot/Comment using given text and location, and saves it to database
+	*	@param string $text the Spot/Comment Text
+	*	@param string $location lat/lon of Spot/Comment
+	*	@returns stdClass $Spot/Comment
 	*/
-	public function delete($spotID)
+	public function new($text, Location $location)
 	{
-
+		$con = connectToDB();
+	
+		$text = mysqli_real_escape_string ( $con , $text );
+		$lat  = $location->latitude;
+		$lon  = $location->longitude;
+		$dist = $location->distance;
+	
+		mysqli_query($con,"INSERT INTO $table (comment, latitude, longitude, distance)"
+						 ."VALUES ('$text', '$lat', '$lon', '$dist')");	
+	
+		mysqli_close($con);
 	}
-
+	
 	/*
-	*	Gets a specific spot using its ID
-	*	@param int $spotID The ID number of the spot
-	*	@returns stdClass $spot
-	*
-	*/
-	public function get($spotID)
-	{
-
-	}
-
-	/*
-	*	Increases the rank of a given spot using its ID
-	*	@param int $spotID The ID number of the spot
-	*	@returns true if upvoted successfully
-	*/
-	public function upVote($spotID)
-	{
-
-	}
-
-	/*
-	*	Gets all spots posted up to the number of days provided
-	*	@param int $numDays number of days to get spots for
-	*	@returns array $spots the array of stdClass objects for spots
+	*	Gets all Spot/Comments posted up to the number of days provided
+	*	@param int $numDays number of days to get Spot/Comments for
+	*	@returns array $Spot/Comments the array of stdClass objects for Spot/Comments
 	*/
 	public function getAll($numDays)
 	{
+		$con = connectToDB();
 
+		$timePeriod = strtotime($timeAgo);
+
+		$result = mysqli_query($con,"SELECT * FROM $table"
+									."WHERE $time>$timePeriod");
+														 
+		$array = array();
+		while($row = mysqli_fetch_array($result)){
+			$array[] = $row;
+		}
+		
+		mysqli_close($con);
+		
+		return $array;
 	}
-
+	
 }

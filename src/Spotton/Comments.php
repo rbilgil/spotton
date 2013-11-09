@@ -2,58 +2,60 @@
 
 namespace Spotton;
 
-class Comments implements DataInterface
-{
-	/*
-	*	Creates a new Comment using given text and location, and saves it to database
-	*	@param string $text the Comment Text
-	*	@param string $location lat/lon of Comment
-	*	@returns stdClass $comment
+class Comments extends Queries {
+	
+	private $spotID;
+	
+	public function __construct($spotID){
+		parent::__construct("comments");
+		$this->spotID = $spotID;
+	}
+	
+		/*
+	*	Creates a new Spot/Comment using given text and location, and saves it to database
+	*	@param string $text the Spot/Comment Text
+	*	@param string $location lat/lon of Spot/Comment
+	*	@returns stdClass $Spot/Comment
 	*/
-	public function new($text, Location $location) 
+	public function new($spotID,$text, Location $location) 
 	{
-
+		$con = connectToDB();
+	
+		$spotID = mysqli_real_escape_string ( $con , $spotID );
+		$text = mysqli_real_escape_string ( $con , $text );
+		$lat  = $location->latitude;
+		$lon  = $location->longitude;
+		$dist = $location->distance;
+	
+		mysqli_query($con,"INSERT INTO $table (spot,comment, latitude, longitude, distance)"
+						 ."VALUES ('$spotID','$text', '$lat', '$lon', '$dist')");	
+	
+		mysqli_close($con);
 	}
 	
 	/*
-	*	Deletes a given comment from database using its ID
-	*	@param int $commentID The ID number of the comment
-	*	@returns true if comment deleted successfully
-	*/
-	public function delete($commentID)
-	{
-
-	}
-
-	/*
-	*	Gets a specific comment using its ID
-	*	@param int $commentID The ID number of the comment
-	*	@returns stdClass $comment
-	*
-	*/
-	public function get($commentID)
-	{
-
-	}
-
-	/*
-	*	Increases the rank of a given comment using its ID
-	*	@param int $commentID The ID number of the comment
-	*	@returns true if upvoted successfully
-	*/
-	public function upVote($commentID)
-	{
-
-	}
-
-	/*
-	*	Gets all comments posted up to the number of days provided
-	*	@param int $numDays number of days to get comments for
-	*	@returns array $comments the array of stdClass objects for comments
+	*	Gets all Spot/Comments posted up to the number of days provided
+	*	@param int $numDays number of days to get Spot/Comments for
+	*	@returns array $Spot/Comments the array of stdClass objects for Spot/Comments
 	*/
 	public function getAll($numDays)
 	{
+		$con = connectToDB();
 
+		$timePeriod = strtotime($timeAgo);
+		
+		$result = mysqli_query($con,"SELECT * FROM $table"
+								   ."WHERE $time>$timePeriod"
+								   ."AND spot='$spotID'");
+		
+		$array = array();
+		while($row = mysqli_fetch_array($result)){
+			$array[] = $row;
+		}
+		
+		mysqli_close($con);
+		
+		return $array;
 	}
-
+	
 }
