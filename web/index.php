@@ -7,7 +7,7 @@ use Spotton\Location;
 
 $app=new Silex\Application();
 
-$app->post("/addspot", function() {
+$app->post("/addSpot", function() {
 
 	$message=$_POST["message"];
 	$lat=$_POST["latitude"];
@@ -39,22 +39,36 @@ $app->post("/addspot", function() {
 
 });
 
-$app->get("/getspot/{spotId}", function($spotId) {
+$app->get("/getSpot/{spotId}", function($spotId) {
 	$spot=new Spots();
 	return json_encode($spot->get($spotId));
 });
 
-$app->get("/getrecentspots/{numDays}", function($numDays) {
+$app->get("/deleteSpot/{spotId}", function($spotId) {
+	$spot=new Spots();
+	$result=new stdClass;
+
+	if ($spot->delete($spotId)) {
+		$result->StatusCode=0;
+	} else {
+		$result->StatusCode=999;
+		$result->StatusMsg="Could not delete spot"
+	}
+
+	return json_encode($result);
+});
+
+$app->get("/getLatest/{numDays}", function($numDays) {
 	$spot=new Spots();
 	return json_encode($spot->getAllRecent($numDays));
 });
 
-$app->get("/gettopspots/{numDays}", function($numDays) {
+$app->get("/getTop/{numDays}", function($numDays) {
 	$spot=new Spots();
 	return json_encode($spot->getAllTop($numDays));
 });
 
-$app->post("/validate", function() {
+$app->post("/validateLocation", function() {
 	
 	$lat=$_POST["latitude"];
 	$lon=$_POST["longitude"];

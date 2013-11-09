@@ -18,6 +18,12 @@ class Queries
 	*/
 	public function delete($id)
 	{
+		$spot=$this->get($id);
+		
+		if ($this->hasAMinutePassed($spot)) {
+			return false;
+		}
+
 		$query="DELETE FROM {$this->table} WHERE id=:id";
 		$bind=array(':id' => $id);
 
@@ -25,6 +31,16 @@ class Queries
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	private function hasAMinutePassed($spot)
+	{
+		$date=new \DateTime();
+		$now=$date->getTimeStamp();
+		
+		if (strtotime($now) - strtotime($spot->time) < strtotime("1 minute")) {
+			return true;
 		}
 	}
 
