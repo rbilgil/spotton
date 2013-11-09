@@ -119,6 +119,52 @@ LOCK TABLES `universities` WRITE;
 INSERT INTO `universities` VALUES (1,'University Of Southampton');
 /*!40000 ALTER TABLE `universities` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `upvotedcomments`
+--
+
+DROP TABLE IF EXISTS `upvotedcomments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `upvotedcomments` (
+  `commentID` int(11) NOT NULL,
+  `userID` varchar(99) NOT NULL,
+  PRIMARY KEY (`commentID`,`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `upvotedcomments`
+--
+
+LOCK TABLES `upvotedcomments` WRITE;
+/*!40000 ALTER TABLE `upvotedcomments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `upvotedcomments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `upvotedspots`
+--
+
+DROP TABLE IF EXISTS `upvotedspots`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `upvotedspots` (
+  `spotID` int(11) NOT NULL,
+  `userID` varchar(99) NOT NULL,
+  PRIMARY KEY (`spotID`,`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `upvotedspots`
+--
+
+LOCK TABLES `upvotedspots` WRITE;
+/*!40000 ALTER TABLE `upvotedspots` DISABLE KEYS */;
+/*!40000 ALTER TABLE `upvotedspots` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -129,4 +175,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-09 23:21:52
+-- Dump completed on 2013-11-09 23:38:01
