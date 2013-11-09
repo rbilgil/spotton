@@ -8,36 +8,38 @@ use Spotton\Location;
 
 $app=new Silex\Application();
 
+$location=new Location(0,0);
+$spots=new Spots();
+$comments=new Comments();
 
-$app->match("/getUniList", function() {
-	$location=new Location(0,0);
+$app->match("/getUniList", function() use ($location) {
+	
 	$resultMessage["universities"]=$location->getUniversityList();
 	
 	return json_encode($resultMessage);
 });
 
-$app->match("/getLocationList/{uniId}", function($uniId) {
-	$location=new Location(0,0);
+$app->match("/getLocationList/{uniId}", function($uniId) use ($location) {
+
 	$resultMessage["locations"]=$location->getLocationList($uniId);
 	
 	return json_encode($resultMessage);
 });
 
 
-$app->post("/addSpot", function() {
+$app->post("/addSpot", function() use ($spots) {
 
-	$message=$_POST["message"];
-	$lat=$_POST["latitude"];
-	$lon=$_POST["longitude"];
-	$locationID=$_POST["locationID"];
-	$universityID=$_POST["universityID"];
+	$message=filter_input($_POST["message"],FILTER_SANITIZE_STRING);
+	$lat=filter_input($_POST["latitude"], FILTER_VALIDATE_FLOAT); 
+	$lon=filter_input($_POST["longitude"], FILTER_VALIDATE_FLOAT);
+	$locationID=filter_input($_POST["locationID"], FILTER_VALIDATE_INT);
+	$universityID=filter_input($_POST["universityID"], FILTER_VALIDATE_INT);
 
-	$spot = new Spots();
 	$location = new Location($lat, $lon);
 
 	if ($location->inRange($locationID, $universityID)) {
 
-		$newMessage = $spot->create($message, $location);
+		$newMessage = $spots->create($message, $location);
 
 		if ($newMessage !== false) {
 			$newMessage->StatusCode=0;
@@ -51,21 +53,19 @@ $app->post("/addSpot", function() {
 		$newMessage->StatusMsg="Location too far from target";
 		$newMessage->StatusCode=999;
 	}
-
+        $resultMessage=[];
 	$resultMessage["spots"][0]=$newMessage;
 	
 	return json_encode($resultMessage);
 
 });
 
-$app->post("/addComment", function() {
+$app->post("/addComment", function() use ($comments) {
 
-	$message=$_POST["message"];
-	$spotID=$_POST["spotID"];
+	$message=filter_input($_POST["message"],FILTER_SANITIZE_STRING);
+	$spotID=filter_input($_POST["spotID"],FILTER_VALIDATE_INT);
 
-	$comment=new Comments();
-
-	$newMessage = $comment->create($spotID, $message);
+	$newMessage = $comments->create($spotID, $message);
 
 	if ($newMessage !== false) {
 		$newMessage->StatusCode=0;
@@ -73,7 +73,7 @@ $app->post("/addComment", function() {
 		$newMessage->StatusCode=403;
 		$newMessage->StatusMsg="Message exceeds character length";
 	}
-
+        $resultMessage=[];
 	$resultMessage["comments"][0]=$newMessage;
 	
 	return json_encode($resultMessage);
@@ -81,21 +81,22 @@ $app->post("/addComment", function() {
 
 $app->match("/getSpot/{spotId}", function($spotId) {
 	$spot=new Spots();
+        $resultMessage=[];
 	$resultMessage["spots"][0]=$spot->get($spotId);
 	return json_encode($resultMessage);
 });
 
-$app->match("/getComment/{commentId}", function($commentId) {
-	$comment=new Comments();
-	$resultMessage["comments"][0]=$comment->get($commentId);
+$app->match("/getComment/{commentId}", function($commentId) use ($comments) {
+
+        $resultMessage=[];
+	$resultMessage["comments"][0]=$comments->get($commentId);
 	return json_encode($resultMessage);
 });
 
-$app->match("/deleteSpot/{spotId}", function($spotId) {
-	$spot=new Spots();
+$app->match("/deleteSpot/{spotId}", function($spotId) use ($spots) {
 	$result=new stdClass;
 
-	if ($spot->delete($spotId)) {
+	if ($spots->delete($spotId)) {
 		$result->StatusCode=0;
 	} else {
 		$result->StatusCode=999;
@@ -105,11 +106,10 @@ $app->match("/deleteSpot/{spotId}", function($spotId) {
 	return json_encode($result);
 });
 
-$app->match("/deleteComment/{commentId}", function($commentId) {
-	$comment=new Comments();
+$app->match("/deleteComment/{commentId}", function($commentId) use ($comments) {
 	$result=new stdClass;
 
-	if ($comment->delete($commentId)) {
+	if ($comments->delete($commentId)) {
 		$result->StatusCode=0;
 	} else {
 		$result->StatusCode=999;
@@ -120,27 +120,23 @@ $app->match("/deleteComment/{commentId}", function($commentId) {
 });
 
 
-$app->post("/getLatest/{numDays}", function($numDays) {
-	$spot=new Spots();
-	$resultMessage["spots"]=$spot->getAllRecent($numDays);
+$app->post("/getLatest/{numDays}", function($numDays) use ($spots) {
+	$resultMessage["spots"]=$spots->getAllRecent($numDays);
 	return json_encode($resultMessage);
 });
 
-$app->post("/getTop/{numDays}", function($numDays) {
-	$spot=new Spots();
-	$resultMessage["spots"]=$spot->getAllTop($numDays);
+$app->post("/getTop/{numDays}", function($numDays) use ($spots) {
+	$resultMessage["spots"]=$spots->getAllTop($numDays);
 	return json_encode($resultMessage);
 });
 
-$app->match("/getLatestComments/{spotId}", function($spotId) {
-	$comment=new Comments();
-	$resultMessage["comments"]=$comment->getAllRecent($spotId);
+$app->match("/getLatestComments/{spotId}", function($spotId) use ($comments) {
+	$resultMessage["comments"]=$comments->getAllRecent($spotId);
 	return json_encode($resultMessage);
 });
 
-$app->match("/getTopComments/{spotId}", function($spotId) {
-	$comment=new Comments();
-	$resultMessage["comments"]=$comment->getAllTop($spotId);
+$app->match("/getTopComments/{spotId}", function($spotId) use ($comments) {
+	$resultMessage["comments"]=$comments->getAllTop($spotId);
 	return json_encode($resultMessage);
 });
 
@@ -148,10 +144,10 @@ $app->match("/getTopComments/{spotId}", function($spotId) {
 
 $app->post("/validateLocation", function() {
 	
-	$lat=$_POST["latitude"];
-	$lon=$_POST["longitude"];
-	$locationID=$_POST["locationID"];
-	$universityID=$_POST["universityID"];
+	$lat=filter_input($_POST["latitude"], FILTER_VALIDATE_FLOAT); 
+	$lon=filter_input($_POST["longitude"], FILTER_VALIDATE_FLOAT);
+	$locationID=filter_input($_POST["locationID"], FILTER_VALIDATE_INT);
+	$universityID=filter_input($_POST["universityID"], FILTER_VALIDATE_INT);
 
 	$location=new Location($lat, $lon);
 	$status=new stdClass();
