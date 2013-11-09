@@ -7,14 +7,19 @@ use PHPUnit_Framework_TestCase;
 class SpotsTest extends PHPUnit_Framework_TestCase
 {
 
+	private $spots;
+
 	public function setUp()
 	{
-
+		$this->spots=new Spots;
 	}
 	
 	public function testNew() 
 	{
-		$this->markTestIncomplete("Not implemented yet");
+		$location=new Location(53.36,-1.3);
+		$spot=$this->spots->create("Test spot", $location);	
+		
+		$this->assertObjectHasAttribute('ID', $spot, 'Spot not created properly');
 	}
 	
 	public function testDelete()

@@ -2,10 +2,12 @@
 
 namespace Spotton;
 
-class Spots extends Queries {
+class Spots extends Queries
+{
 	
-	public function __construct($id,$spotID){
-		parent::__construct($id,"spots");
+	public function __construct()
+	{
+		parent::__construct("spots");
 	}
 	
 		/*
@@ -14,19 +16,17 @@ class Spots extends Queries {
 	*	@param string $location lat/lon of Spot/Comment
 	*	@returns stdClass $Spot/Comment
 	*/
-	public function new($text, Location $location)
+	public function create($text, Location $location)
 	{
-		$con = connectToDB();
+		$universityID=$location->getUniversityID();
+		$locationID=$location->getLocationID();
+		$startRating=0;
 	
-		$text = mysqli_real_escape_string ( $con , $text );
-		$lat  = $location->latitude;
-		$lon  = $location->longitude;
-		$dist = $location->distance;
+		$query = "INSERT INTO :table (text, universityID, locationID, rating) VALUES (:text,  :uni, :loc, :rating)";
 	
-		mysqli_query($con,"INSERT INTO $table (comment, latitude, longitude, distance)"
-						 ."VALUES ('$text', '$lat', '$lon', '$dist')");	
-	
-		mysqli_close($con);
+		$bind = array(':table' => $this->table, ':text' => $text, ':uni' => $universityID, ':loc' => $locationID, ':rating' => $startRating);
+
+		return Database::query($query, $bind);
 	}
 	
 	/*
@@ -36,21 +36,12 @@ class Spots extends Queries {
 	*/
 	public function getAll($numDays)
 	{
-		$con = connectToDB();
-
 		$timePeriod = strtotime($timeAgo);
 
-		$result = mysqli_query($con,"SELECT * FROM $table"
-									."WHERE $time>$timePeriod");
-														 
-		$array = array();
-		while($row = mysqli_fetch_array($result)){
-			$array[] = $row;
-		}
-		
-		mysqli_close($con);
-		
-		return $array;
+		$query = "SELECT * FROM $table WHERE time > :timePeriod";
+		$bind=array(':timePeriod' => $timePeriod);
+
+		return Database::query($query, $bind);
 	}
 	
 }

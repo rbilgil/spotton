@@ -9,12 +9,15 @@ use stdClass, PDO;
 *	Main purpose is to validate that the user is within the range required to be eligible to post a spot
 */
 
-class Location extends ConnectToDB
+class Location
 {
 
 	const EARTH_RADIUS=6371; //in km, needed for distance calculation
 	private $lat;
 	private $lon;
+
+	private $locationID;
+	private $universityID;
 	
 	/*
 	*	Constructor that sets the lat/lon of the user
@@ -39,6 +42,16 @@ class Location extends ConnectToDB
 		return $location;
 	}
 
+	public function getLocationID()
+	{
+		return $this->locationID;
+	}
+
+	public function getUniversityID()
+	{
+		return $this->universityID;
+	}
+
 	/*
 	*	Checks if the user is in range of the location and university that we are spotting for
 	*	@param int $locationID the ID of the location
@@ -47,6 +60,9 @@ class Location extends ConnectToDB
 	*/
 	public function inRange($locationID, $universityID)
 	{
+		$this->locationID=$locationID;
+		$this->universityID=$universityID;
+		
 		$location=$this->getLocation($locationID, $universityID);
 		$distance=$this->calcDistFromUser($location);
 		$isInRange=$distance <= $location->distance;
@@ -75,12 +91,9 @@ class Location extends ConnectToDB
 	private function getLocation($locationID, $universityID)
 	{
 		$query="SELECT * from locations WHERE id=:id AND UniID=:uniID";
-		$connection=$this->connectToDB();
-		$statement=$connection->prepare($query);
-		
-		$statement->execute(array(':id'=>$locationID, ':uniID' => $universityID));
+		$bind=array(':id'=>$locationID, ':uniID' => $universityID);
 
-		return $statement->fetch(PDO::FETCH_OBJ);
+		return Database::query($query, $bind);
 	}
 
 }

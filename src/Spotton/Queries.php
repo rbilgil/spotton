@@ -2,74 +2,62 @@
 
 namespace Spotton;
 
-class Queries extends ConnectToDB
+class Queries
 {
-	private $table;
-	private $id;
+	protected $table;
 	
-	public function __construct($id,$tableName){
-		$this->$id = $id;
-		$table = $tableName;
+	public function __construct($tableName) 
+	{
+		$this->table = $tableName;
 	}
 	
 	/*
 	*	Deletes a given Spot/Comment from database using its ID
 	*	@param int $id The ID number of the Spot/Comment
-	*	@returns true if Spot/Comment deleted successfully
+	*	@returns true or false depending on success/failure
 	*/
 	public function delete($id)
 	{
-		$con = connectToDB();
+		$query="DELETE FROM :table WHERE id=:id";
+		$bind=array($this->table, $id);
 
-		$id = mysqli_real_escape_string ( $con , $id );
-
-		$result = mysqli_query($con,"DELETE FROM $table"
-						 ."WHERE id='$id'");
-
-		mysqli_close($con);
-		
-		return $result;
+		if (Database::query($query, $bind) !== false) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/*
 	*	Increases the rank of a given Spot/Comment using its ID
 	*	@param int $id The ID number of the Spot/Comment
-	*	@returns true if upvoted successfully
+	*	@returns true or false depending on success/failure
 	*/
 	public function upVote($id)
 	{
-		$con = connectToDB();
+		$query = "UPDATE :table SET spottons = spottons + 1 WHERE id=:id";
+		$bind=array(':table' => $this->table, ':id' => $id);
 
-		$id = mysqli_real_escape_string ( $con , $id );
-
-		$result = mysqli_query($con,"UPDATE $table SET spottons = spottons + 1"
-						 ."WHERE id='$id'");
-
-		mysqli_close($con);
-		
-		return $result;
+		if (Database::query($query, $bind) !== false) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/*
 	*	Gets a specific Spot/Comment using its ID
 	*	@param int $id The ID number of the Spot/Comment
-	*	@returns stdClass $Spot/Comment
+	*	@returns stdClass Spot/Comment
 	*
 	*/
 	public function get($id)
 	{
-		$con = connectToDB();
 
-		$id = mysqli_real_escape_string ( $con , $id );
+		$query="SELECT * FROM :table WHERE id=:id";
+		$bind=array(':table' => $this->table, ':id' => $id);
 
-		$result = mysqli_query($con,"SELECT * FROM $table"
-									."WHERE id='$id'");
-														 
-		$array = mysqli_fetch_array($result);
-
-		mysqli_close($con);
-
-		return $array;
+		return Database::query($query, $bind);
 	}
 
 }
