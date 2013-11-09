@@ -56,7 +56,7 @@ CREATE TABLE `locations` (
   `longitude` float(20,10) NOT NULL,
   `distance` float(20,10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,6 +65,7 @@ CREATE TABLE `locations` (
 
 LOCK TABLES `locations` WRITE;
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
+INSERT INTO `locations` VALUES (1,1,'Hartley Library',50.9361190796,-1.3964297771,0.5000000000);
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +83,7 @@ CREATE TABLE `spots` (
   `rating` int(11) DEFAULT '0',
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +92,7 @@ CREATE TABLE `spots` (
 
 LOCK TABLES `spots` WRITE;
 /*!40000 ALTER TABLE `spots` DISABLE KEYS */;
-INSERT INTO `spots` VALUES (1,'First Spot!',1,0,'2013-11-09 10:18:06'),(2,'First Spot!',1,0,'2013-11-09 10:18:27'),(3,'First Spot!',1,0,'2013-11-09 10:18:29');
+INSERT INTO `spots` VALUES (1,'First Spot!',1,0,'2013-11-09 10:18:06'),(2,'First Spot!',1,0,'2013-11-09 10:18:27'),(3,'First Spot!',1,0,'2013-11-09 10:18:29'),(4,'',1,0,'2013-11-09 11:46:28'),(5,'New Spott',1,0,'2013-11-09 11:47:04'),(6,'New Spottttt',1,0,'2013-11-09 11:54:46'),(7,'dfdsaf',1,0,'2013-11-09 13:29:14'),(8,'tiiiired',1,0,'2013-11-09 21:25:44');
 /*!40000 ALTER TABLE `spots` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +107,7 @@ CREATE TABLE `universities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(140) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,6 +116,7 @@ CREATE TABLE `universities` (
 
 LOCK TABLES `universities` WRITE;
 /*!40000 ALTER TABLE `universities` DISABLE KEYS */;
+INSERT INTO `universities` VALUES (1,'University Of Southampton');
 /*!40000 ALTER TABLE `universities` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -127,4 +129,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-09 10:38:50
+-- Dump completed on 2013-11-09 23:21:52
