@@ -69,11 +69,11 @@ class Queries
 	*/
 	public function get($id)
 	{
-		$query="SELECT * FROM {$this->table} WHERE ID={$id}";
+		$query="SELECT * FROM {$this->table} WHERE id={$id}";
 		$bind=array();
 
 		$spot = Database::query($query, $bind);
-		$spot->score=RankedSpots::getScore($spot);
+		$spot->score=Ranker::getScore($spot);
 		return $spot;
 
 	}

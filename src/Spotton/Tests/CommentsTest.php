@@ -14,18 +14,23 @@ class CommentsTest extends PHPUnit_Framework_TestCase
 	{
 		$spots=new Spots();
 		$highfield=new Location(50.935282,-1.398421);
-		$this->spot=$spots->create("Test Spot", $highfield);
+		if ($highfield->inRange(1,1)) {
+			$this->spot=$spots->create("Test Spot", $highfield);	
+		} else {
+			$this->spot=new \stdClass;
+		}
+		
 		$this->comments=new Comments;
 	}
 	
 	public function testCreate() 
 	{
 		//testing case of exceeding characters
-		$comment=$this->comment->createComment($this->spot->id, "Too many characters in this message, haha it's gonna be hard to exceed it because I don't have a whole lot of things to type lol! Anyway I should probably go now");
+		$comment=$this->createComment("Too many characters in this message, haha it's gonna be hard to exceed it because I don't have a whole lot of things to type lol! Anyway I should probably go now");
 		$this->assertFalse($comment);
 
 		//normal case
-		$comment=$this->comment->createCommment($this->spot->id, "Test comment");
+		$comment=$this->createComment();
 		$this->assertObjectHasAttribute('id', $comment, 'Comment not created properly');
 	}
 
@@ -33,12 +38,16 @@ class CommentsTest extends PHPUnit_Framework_TestCase
 	{
 		$comment=$this->createComment();
 
-		$this->assertTrue($this->comment->delete($comment->id));
+		$this->assertTrue($this->comments->delete($comment->id));
+	}
+
+	private function createComment($message="Test Comment")
+	{
+		return $this->comments->create($this->spot->id, $message);
 	}
 
 	public function testGet()
 	{
-		$spot=$this->spots->create();
 		$comment=$this->createComment();
 		$newComment=$this->comments->get($comment->id);
 
@@ -51,9 +60,9 @@ class CommentsTest extends PHPUnit_Framework_TestCase
 		
 		$previousVotes=$comment->rating;
 
-		$this->assertTrue($this->spots->upVote($comment->id));
+		$this->assertTrue($this->comments->upVote($comment->id));
 
-		$newComment=$this->spots->get($comment->id);
+		$newComment=$this->comments->get($comment->id);
 		$newVotes=$newComment->rating;
 
 		$this->assertEquals($newVotes-$previousVotes, 1);
@@ -61,12 +70,12 @@ class CommentsTest extends PHPUnit_Framework_TestCase
 
 	public function testGetAllRecent()
 	{
-		$this->spots->getAllRecent(3);
+		$this->comments->getAllRecent($this->spot->id, 3);
 	}
 
 	public function testGetAllTop() 
 	{
-		$this->assertContainsOnlyInstancesOf('stdClass', $this->spots->getAllTop(3));
+		$this->assertContainsOnlyInstancesOf('stdClass', $this->comments->getAllTop($this->spot->id, 3));
 	}
 
 }

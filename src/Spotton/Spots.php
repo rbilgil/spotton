@@ -32,7 +32,6 @@ class Spots extends Queries
 		$bind=array(':message' => $message, ':loc' => $locationID);
 
 		$result=Database::query($query, $bind);
-
 		return $this->get($result->lastID);
 	}
 
@@ -56,7 +55,7 @@ class Spots extends Queries
 	{
 		$spots=$this->getAllRecent($numDays);
 
-		return RankedSpots::rankSpots($spots);
+		return Ranker::rank($spots);
 	}
 	
 }

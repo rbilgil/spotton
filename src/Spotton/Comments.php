@@ -17,17 +17,15 @@ class Comments extends Queries {
 	*	@param string $location lat/lon of Spot/Comment
 	*	@returns stdClass $Spot/Comment
 	*/
-	public function create($spotID, $text, Location $location) 
+	public function create($spotID, $message) 
 	{
 		if (strlen($message) > self::CHAR_LIMIT) {
 			return false;
 		}
 
-		$locationID=$location->getLocationID();
+		$query = "INSERT INTO {$this->table} (spotID, message) VALUES (:spotID, :message)";
 
-		$query = "INSERT INTO {$this->table} (spotID, message, locationID) VALUES (:spotID, :message, :loc)";
-
-		$bind=array(':spotID' => $spotID, ':message' => $message, ':loc' => $locationID);
+		$bind=array(':spotID' => $spotID, ':message' => $message);
 
 		$result=Database::query($query, $bind);
 
@@ -45,7 +43,7 @@ class Comments extends Queries {
 		$dateTimeString = "-".$numDays." days";
 		$daysAgo=strtotime($dateTimeString);
 
-		$query = "SELECT * FROM {$this->table} WHERE spotID=':spotID' AND time >= :timePeriod";
+		$query = "SELECT * FROM {$this->table} WHERE spotID=:spotID AND time >= :timePeriod";
 		$bind=array(':spotID' => $spotID, ':timePeriod' => $daysAgo);
 
 		return Database::query($query, $bind);
@@ -53,9 +51,13 @@ class Comments extends Queries {
 
 	public function getAllTop($spotID, $numDays)
 	{
-		$comments=$this->getAllRecent($numDays);
-
-		return RankedSpots::rankSpots($comments);
+		$commentsList=$this->getAllRecent($spotID, $numDays);
+		if (!is_array($commentsList)) {
+			$comments[0]=$commentsList;
+		} else {
+			$comments=$commentsList;
+		}
+		return Ranker::rank($comments);
 	}
 	
 }
