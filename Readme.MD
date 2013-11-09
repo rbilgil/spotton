@@ -7,12 +7,19 @@ http://www.spotton.co/web/api.php - base
 **GET**
 
 /getUniList
+
 /getLocationList/{universityId}
+
 /getSpot/{spotId}
+
 /getComment/{commentId}
+
 /getTop/{numberOfDays}
+
 /getLatest/{numberOfDays}
+
 /getTopComments/{spotId}
+
 /getLatestComments/{spotId}
 
 
@@ -34,6 +41,7 @@ http://www.spotton.co/web/api.php - base
 	-	universityID:
 
 /addComment
+
 	-	message:
 	-	spotId:
 
