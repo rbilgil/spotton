@@ -45,4 +45,12 @@ http://www.spotton.co/web/api.php - base
 	-	message:
 	-	spotId:
 
+/upVoteSpot/{spotID}
+
+        -       uniqueID:
+
+/upVoteComment/{commentID}
+
+        -       uniqueID:
+
 

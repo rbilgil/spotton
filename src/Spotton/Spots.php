@@ -45,8 +45,8 @@ class Spots extends Queries
 		$dateTimeString = "-".$numDays." days";
 		$daysAgo=strtotime($dateTimeString);
 
-		$query = "SELECT * FROM {$this->table} WHERE time >= :timePeriod AND uniID=:uniID";
-		$bind=array(':timePeriod' => $daysAgo, ':uniID' => $universityID);
+		$query = "SELECT * FROM {$this->table} WHERE time >= :timePeriod";
+		$bind=array(':timePeriod' => $daysAgo);
 
 		return Database::query($query, $bind);
 	}
