@@ -47,7 +47,6 @@ class Database
 		$statement=$connection->prepare($query);
 		try {
 			$statement->execute($bind);
-			var_dump($statement);
 		} catch (PDOException $e) {
 			return false;
 		}

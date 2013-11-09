@@ -20,15 +20,14 @@ class Spots extends Queries
 	{
 		$universityID=$location->getUniversityID();
 		$locationID=$location->getLocationID();
-		$startRating=0;
 	
-		$query = "INSERT INTO spots(message, uniID, locationID, rating) VALUES (:message,  :uni, :loc, :rating)";
+		$query = "INSERT INTO :table (message, locationID) VALUES (:message, :loc)";
 	
-		$bind = array(':message' => $message, ':uni' => $universityID, ':loc' => $locationID, ':rating' => $startRating);
+		$bind = array(':table' => $this->table, ':message' => $message, ':loc' => $locationID);
 
 		return Database::query($query, $bind);
 	}
-	
+
 	/*
 	*	Gets all Spot/Comments posted up to the number of days provided
 	*	@param int $numDays number of days to get Spot/Comments for
