@@ -14,35 +14,65 @@ class SpotsTest extends PHPUnit_Framework_TestCase
 		$this->spots=new Spots;
 	}
 	
-	public function testNew() 
+	public function testCreate() 
+	{
+		$spot=$this->createSpot("Too many characters in this message, haha it's gonna be hard to exceed it because I don't have a whole lot of things to type lol! Anyway I should probably go now");
+		$this->assertFalse($spot);
+
+		$spot=$this->createSpot();
+		$this->assertObjectHasAttribute('id', $spot, 'Spot not created properly');
+	}
+
+	private function createSpot($message="Test spot")
 	{
 		$highfield=new Location(50.935282,-1.398421);
 		
 		if ($highfield->inRange(1,1)) {
-			$spot=$this->spots->create("Test spot", $highfield);
+			$spot=$this->spots->create($message, $highfield);
+		} else {
+			$spot=new stdClass;
 		}
-		
-		$this->assertObjectHasAttribute('ID', $spot, 'Spot not created properly');
+
+		return $spot;
 	}
 	
 	public function testDelete()
 	{
-		$this->markTestIncomplete("Not implemented yet");
+		$spot=$this->createSpot();
+
+		$this->assertTrue($this->spots->delete($spot->id));
 	}
 
 	public function testGet()
 	{
-		$this->markTestIncomplete("Not implemented yet");
+		$spot=$this->createSpot();
+		$newSpot=$this->spots->get($spot->id);
+
+		$this->assertObjectHasAttribute('id', $newSpot, 'No ID found in Spot');
 	}
 
 	public function testUpVote()
 	{
-		$this->markTestIncomplete("Not implemented yet");
+		$spot=$this->createSpot();
+		
+		$previousVotes=$spot->rating;
+
+		$this->assertTrue($this->spots->upVote($spot->id));
+
+		$newSpot=$this->spots->get($spot->id);
+		$newVotes=$newSpot->rating;
+
+		$this->assertEquals($newVotes-$previousVotes, 1);
 	}
 
-	public function testGetAll()
+	public function testGetAllRecent()
 	{
-		$this->markTestIncomplete("Not implemented yet");
+		$this->spots->getAllRecent(3);
+	}
+
+	public function testGetAllTop() 
+	{
+		var_dump($this->spots->getAllTop(3));
 	}
 
 }

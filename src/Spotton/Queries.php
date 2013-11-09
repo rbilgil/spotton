@@ -18,8 +18,8 @@ class Queries
 	*/
 	public function delete($id)
 	{
-		$query="DELETE FROM :table WHERE id=:id";
-		$bind=array($this->table, $id);
+		$query="DELETE FROM {$this->table} WHERE id=:id";
+		$bind=array(':id' => $id);
 
 		if (Database::query($query, $bind) !== false) {
 			return true;
@@ -35,8 +35,8 @@ class Queries
 	*/
 	public function upVote($id)
 	{
-		$query = "UPDATE :table SET spottons = spottons + 1 WHERE id=:id";
-		$bind=array(':table' => $this->table, ':id' => $id);
+		$query = "UPDATE {$this->table} SET rating = rating + 1 WHERE id=:id";
+		$bind=array(':id' => $id);
 
 		if (Database::query($query, $bind) !== false) {
 			return true;
@@ -53,11 +53,9 @@ class Queries
 	*/
 	public function get($id)
 	{
-
-		$query="SELECT * FROM :table WHERE id=:id";
-		$bind=array(':table' => $this->table, ':id' => $id);
+		$query="SELECT * FROM {$this->table} WHERE ID={$id}";
+		$bind=array();
 
 		return Database::query($query, $bind);
 	}
-
 }

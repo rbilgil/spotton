@@ -44,17 +44,23 @@ class Database
 	public static function query($query, array $bind)
 	{
 		$connection=self::connect();
+
 		$statement=$connection->prepare($query);
+		
 		try {
 			$statement->execute($bind);
 		} catch (PDOException $e) {
 			return false;
 		}
-		
-		$result = $statement->fetchAll(PDO::FETCH_OBJ);
+
+		$result=$statement->fetchAll(PDO::FETCH_OBJ);
 
 		//If there is only a single result, it's stored in a single-element array. If so, we return the element instead of the array
-		if (count($result) === 1) {
+		if (count($result)===0) {
+			$result=new stdClass;
+			$result->lastID=$connection->lastInsertId();
+			return $result;
+		} elseif (count($result) === 1) {
 			return $result[0];
 		} else {
 			return $result;
