@@ -3,6 +3,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 use Spotton\Spots;
+use Spotton\Comments;
 use Spotton\Location;
 
 $app=new Silex\Application();
@@ -41,9 +42,36 @@ $app->post("/addSpot", function() {
 
 });
 
+$app->post("/addComment", function() {
+
+	$message=$_POST["message"];
+	$spotID=$_POST["spotID"];
+
+	$comment=new Comments();
+
+	$newMessage = $comment->create($spotID, $message);
+
+	if ($newMessage !== false) {
+		$newMessage->StatusCode=0;
+	} else {
+		$newMessage->StatusCode=403;
+		$newMessage->StatusMsg="Message exceeds character length";
+	}
+
+	$resultMessage["comments"][0]=$newMessage;
+	
+	return json_encode($resultMessage);
+});
+
 $app->get("/getSpot/{spotId}", function($spotId) {
 	$spot=new Spots();
 	$resultMessage["spots"][0]=$spot->get($spotId);
+	return json_encode($resultMessage);
+});
+
+$app->get("/getComment/{commentId}", function($commentId) {
+	$comment=new Comments();
+	$resultMessage["comments"][0]=$comment->get($commentId);
 	return json_encode($resultMessage);
 });
 
@@ -61,6 +89,21 @@ $app->get("/deleteSpot/{spotId}", function($spotId) {
 	return json_encode($result);
 });
 
+$app->get("/deleteComment/{commentId}", function($commentId) {
+	$comment=new Comments();
+	$result=new stdClass;
+
+	if ($comment->delete($commentId)) {
+		$result->StatusCode=0;
+	} else {
+		$result->StatusCode=999;
+		$result->StatusMsg="Could not delete comment";
+	}
+
+	return json_encode($result);
+});
+
+
 $app->get("/getLatest/{numDays}", function($numDays) {
 	$spot=new Spots();
 	$resultMessage["spots"]=$spot->getAllRecent($numDays);
@@ -72,6 +115,20 @@ $app->get("/getTop/{numDays}", function($numDays) {
 	$resultMessage["spots"]=$spot->getAllTop($numDays);
 	return json_encode($resultMessage);
 });
+
+$app->get("/getLatestComments/{spotId}", function($spotId) {
+	$comment=new Comments();
+	$resultMessage["comments"]=$comment->getAllRecent($spotId);
+	return json_encode($resultMessage);
+});
+
+$app->get("/getTopComments/{spotId}", function($spotId) {
+	$comment=new Comments();
+	$resultMessage["comments"]=$comment->getAllTop($spotId);
+	return json_encode($resultMessage);
+});
+
+
 
 $app->post("/validateLocation", function() {
 	

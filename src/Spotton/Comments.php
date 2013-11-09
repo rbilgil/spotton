@@ -38,20 +38,17 @@ class Comments extends Queries {
 	*	@returns array $Spot/Comments the array of stdClass objects for Spot/Comments
 	*/
 
-	public function getAllRecent($spotID, $numDays)
+	public function getAllRecent($spotID)
 	{
-		$dateTimeString = "-".$numDays." days";
-		$daysAgo=strtotime($dateTimeString);
-
-		$query = "SELECT * FROM {$this->table} WHERE spotID=:spotID AND time >= :timePeriod";
-		$bind=array(':spotID' => $spotID, ':timePeriod' => $daysAgo);
+		$query = "SELECT * FROM {$this->table} WHERE spotID=:spotID";
+		$bind=array(':spotID' => $spotID);
 
 		return Database::query($query, $bind);
 	}
 
-	public function getAllTop($spotID, $numDays)
+	public function getAllTop($spotID)
 	{
-		$commentsList=$this->getAllRecent($spotID, $numDays);
+		$commentsList=$this->getAllRecent($spotID);
 		
 		if (!is_array($commentsList)) {
 			

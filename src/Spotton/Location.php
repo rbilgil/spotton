@@ -52,6 +52,20 @@ class Location
 		return $this->universityID;
 	}
 
+	public function getUniversityList()
+	{
+		$query="SELECT * FROM universities";
+		return Database::query($query, array());
+	}
+
+	public function getLocationList($universityID)
+	{
+		$query="SELECT * FROM locations WHERE universityID=:universityID";
+		$bind=array(':universityID' => $universityID);
+
+		return Database::query($query, $bind);
+	}
+
 	/*
 	*	Checks if the user is in range of the location and university that we are spotting for
 	*	@param int $locationID the ID of the location
