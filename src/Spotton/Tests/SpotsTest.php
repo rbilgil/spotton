@@ -16,8 +16,11 @@ class SpotsTest extends PHPUnit_Framework_TestCase
 	
 	public function testNew() 
 	{
-		$location=new Location(53.36,-1.3);
-		$spot=$this->spots->create("Test spot", $location);	
+		$highfield=new Location(50.935282,-1.398421);
+		
+		if ($highfield->inRange(1,1)) {
+			$spot=$this->spots->create("Test spot", $highfield);
+		}
 		
 		$this->assertObjectHasAttribute('ID', $spot, 'Spot not created properly');
 	}

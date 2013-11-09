@@ -42,6 +42,15 @@ class LocationTest extends PHPUnit_Framework_TestCase
 		
 		$isInRange=$equator->inRange(1, 1);
 		$this->assertFalse($isInRange);
+
+		$avenueCampus=new Location(50.928344,-1.402133);
+		$isInRange=$avenueCampus->inRange(1, 1);
+		$this->assertFalse($isInRange);
+
+		$highfieldCampus=new Location(50.935282,-1.398421);
+		$isInRange=$highfieldCampus->inRange(1,1);
+		$this->assertTrue($isInRange);
+
 	}
 
 }

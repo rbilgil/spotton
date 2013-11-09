@@ -10,21 +10,21 @@ class Spots extends Queries
 		parent::__construct("spots");
 	}
 	
-		/*
+	/*
 	*	Creates a new Spot/Comment using given text and location, and saves it to database
-	*	@param string $text the Spot/Comment Text
+	*	@param string $message the Spot/Comment Text
 	*	@param string $location lat/lon of Spot/Comment
 	*	@returns stdClass $Spot/Comment
 	*/
-	public function create($text, Location $location)
+	public function create($message, Location $location)
 	{
 		$universityID=$location->getUniversityID();
 		$locationID=$location->getLocationID();
 		$startRating=0;
 	
-		$query = "INSERT INTO :table (text, universityID, locationID, rating) VALUES (:text,  :uni, :loc, :rating)";
+		$query = "INSERT INTO spots(message, uniID, locationID, rating) VALUES (:message,  :uni, :loc, :rating)";
 	
-		$bind = array(':table' => $this->table, ':text' => $text, ':uni' => $universityID, ':loc' => $locationID, ':rating' => $startRating);
+		$bind = array(':message' => $message, ':uni' => $universityID, ':loc' => $locationID, ':rating' => $startRating);
 
 		return Database::query($query, $bind);
 	}
