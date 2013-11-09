@@ -12,7 +12,7 @@ use stdClass, PDO;
 class Location
 {
 
-	const EARTH_RADIUS=6371; //in km
+	const EARTH_RADIUS=6371; //in km, needed for distance calculation
 	private $lat;
 	private $lon;
 	
@@ -49,7 +49,8 @@ class Location
 	{
 		$location=$this->getLocation($locationID, $universityID);
 		$distance=$this->calcDistFromUser($location);
-		return $distance <= $location->distance;
+		$isInRange=$distance <= $location->distance;
+		return $isInRange;
 	}
 
 	private function calcDistFromUser(stdClass $location)

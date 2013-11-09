@@ -6,11 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Spotton\\Comments' => $baseDir . '/src/Spotton/Comments.php',
-    'Spotton\\CommentsTest' => $baseDir . '/src/Spotton/Tests/CommentsTest.php',
-    'Spotton\\DataInterface' => $baseDir . '/src/Spotton/Interfaces/DataInterface.php',
-    'Spotton\\Location' => $baseDir . '/src/Spotton/Location.php',
-    'Spotton\\LocationTest' => $baseDir . '/src/Spotton/Tests/LocationTest.php',
-    'Spotton\\Spots' => $baseDir . '/src/Spotton/Spots.php',
-    'Spotton\\SpotsTest' => $baseDir . '/src/Spotton/Tests/SpotsTest.php',
+    'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
 );
