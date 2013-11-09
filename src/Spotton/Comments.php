@@ -3,13 +3,12 @@
 namespace Spotton;
 
 class Comments extends Queries {
-	
-	private $this->connection;
+
+	const CHAR_LIMIT=140;
 	
 	public function __construct() 
 	{
 		parent::__construct("comments");
-		$this->spotID = $spotID;
 	}
 	
 	/*
@@ -20,16 +19,19 @@ class Comments extends Queries {
 	*/
 	public function create($spotID, $text, Location $location) 
 	{
-		$lat  = $location->latitude;
-		$lon  = $location->longitude;
-		$dist = $location->distance;
-	
-		$query="INSERT INTO :table (spot, comment, latitude, longitude, distance)"
-						 ."VALUES (:spotID, :text, :lat, :lon, :dist)";
+		if (strlen($message) > self::CHAR_LIMIT) {
+			return false;
+		}
 
-		$bind=array(':table' => $this->table, ':spotID' => $spotID, ':text' => $text, ':lat' => $lat, ':lon' => $lon, ':dist' => $dist);
+		$locationID=$location->getLocationID();
 
-		return Database::query($query, $bind);
+		$query = "INSERT INTO {$this->table} (spotID, message, locationID) VALUES (:spotID, :message, :loc)";
+
+		$bind=array(':spotID' => $spotID, ':message' => $message, ':loc' => $locationID);
+
+		$result=Database::query($query, $bind);
+
+		return $this->get($result->lastID);
 	}
 	
 	/*
@@ -37,14 +39,23 @@ class Comments extends Queries {
 	*	@param int $numDays number of days to get Spot/Comments for
 	*	@returns array $Spot/Comments the array of stdClass objects for Spot/Comments
 	*/
-	public function getAll($spotID, $numDays)
+
+	public function getAllRecent($spotID, $numDays)
 	{
-		$timePeriod = strtotime($timeAgo);
-		
-		$query="SELECT * FROM :table WHERE time > :timePeriod AND spot = :spotID";
-		$bind=array(':table' => $this->table, ':timePeriod' => $timePeriod, ':spotID' => $spotID);
+		$dateTimeString = "-".$numDays." days";
+		$daysAgo=strtotime($dateTimeString);
+
+		$query = "SELECT * FROM {$this->table} WHERE spotID=':spotID' AND time >= :timePeriod";
+		$bind=array(':spotID' => $spotID, ':timePeriod' => $daysAgo);
 
 		return Database::query($query, $bind);
+	}
+
+	public function getAllTop($spotID, $numDays)
+	{
+		$comments=$this->getAllRecent($numDays);
+
+		return RankedSpots::rankSpots($comments);
 	}
 	
 }

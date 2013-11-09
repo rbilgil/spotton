@@ -34,14 +34,17 @@ $app->post("/addSpot", function() {
 		$newMessage->StatusMsg="Location too far from target";
 		$newMessage->StatusCode=999;
 	}
+
+	$resultMessage["spots"][0]=$newMessage;
 	
-	return json_encode($newMessage);
+	return json_encode($resultMessage);
 
 });
 
 $app->get("/getSpot/{spotId}", function($spotId) {
 	$spot=new Spots();
-	return json_encode($spot->get($spotId));
+	$resultMessage["spots"][0]=$spot->get($spotId);
+	return json_encode($resultMessage);
 });
 
 $app->get("/deleteSpot/{spotId}", function($spotId) {
@@ -52,7 +55,7 @@ $app->get("/deleteSpot/{spotId}", function($spotId) {
 		$result->StatusCode=0;
 	} else {
 		$result->StatusCode=999;
-		$result->StatusMsg="Could not delete spot"
+		$result->StatusMsg="Could not delete spot";
 	}
 
 	return json_encode($result);
@@ -60,12 +63,14 @@ $app->get("/deleteSpot/{spotId}", function($spotId) {
 
 $app->get("/getLatest/{numDays}", function($numDays) {
 	$spot=new Spots();
-	return json_encode($spot->getAllRecent($numDays));
+	$resultMessage["spots"]=$spot->getAllRecent($numDays);
+	return json_encode($resultMessage);
 });
 
 $app->get("/getTop/{numDays}", function($numDays) {
 	$spot=new Spots();
-	return json_encode($spot->getAllTop($numDays));
+	$resultMessage["spots"]=$spot->getAllTop($numDays);
+	return json_encode($resultMessage);
 });
 
 $app->post("/validateLocation", function() {
