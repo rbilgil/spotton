@@ -1,6 +1,6 @@
 <?php
 
-namespace Commentton;
+namespace Spotton;
 
 class Comments
 {
