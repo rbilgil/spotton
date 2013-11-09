@@ -8,10 +8,13 @@
 	"buffers":
 	[
 		{
-			"contents": "",
+			"contents": "<?php\n\nnamespace Spotton;\n\nclass Spots\n{\n	/*\n	*	Creates a new Spot using given text and location, and saves it to database\n	*	@param string $text the Spot Text\n	*	@param string $location lat/lon of Spot\n	*	@returns stdClass $spot\n	*/\n	public function newSpot($text, $location) \n	{\n\n	}\n	/*\n	*	Deletes a given spot from database using its ID\n	*	@param int $spotID The ID number of the spot\n	*	@returns true if spot deleted successfully\n	*/\n	public function deleteSpot($spotID)\n	{\n\n	}\n\n	/*\n	*	Gets a specific spot using its ID\n	*	@param int $spotID The ID number of the spot\n	*	@returns stdClass $spot\n	*\n	*/\n	public function getSpot($spotID)\n	{\n\n	}\n\n	/*\n	*	Increases the rank of a given spot using its ID\n	*	@param int $spotID The ID number of the spot\n	*	@returns true if upvoted successfully\n	*/\n	public function upVote($spotID)\n	{\n\n	}\n\n	/*\n	*	Gets all spots posted up to the number of days provided\n	*	@param int $numDays number of days to get spots for\n	*	@returns array $spots the array of stdClass objects for spots\n	*/\n	public function getSpots($numDays)\n	{\n\n	}\n\n}",
+			"file": "Spots.php",
+			"file_size": 1126,
+			"file_write_time": 130284320474471301,
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 1069,
 				"line_ending": "Windows"
 			}
 		}
@@ -56,6 +59,7 @@
 	},
 	"file_history":
 	[
+		"/C/xampp/htdocs/spotton/Comments.php"
 	],
 	"find":
 	{
@@ -95,24 +99,25 @@
 			[
 				{
 					"buffer": 0,
+					"file": "Spots.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 1069,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								281,
+								281
 							]
 						],
 						"settings":
 						{
-							"auto_name": "",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
