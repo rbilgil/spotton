@@ -70,11 +70,18 @@ class CommentsTest extends PHPUnit_Framework_TestCase
 
 	public function testGetAllRecent()
 	{
-		$this->comments->getAllRecent($this->spot->id, 3);
+		for ($i=0; $i<5; $i++) {
+			$this->createComment();
+		}
+		$this->assertContainsOnlyInstancesOf('stdClass', $this->comments->getAllRecent($this->spot->id, 3));
 	}
 
 	public function testGetAllTop() 
 	{
+		for ($i=0; $i<5; $i++) {
+			$this->createComment();
+		}
+
 		$this->assertContainsOnlyInstancesOf('stdClass', $this->comments->getAllTop($this->spot->id, 3));
 	}
 

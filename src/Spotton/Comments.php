@@ -52,11 +52,18 @@ class Comments extends Queries {
 	public function getAllTop($spotID, $numDays)
 	{
 		$commentsList=$this->getAllRecent($spotID, $numDays);
+		
 		if (!is_array($commentsList)) {
-			$comments[0]=$commentsList;
+			
+			if ($commentsList->lastID==0) {
+				return false;	
+			} else {
+				$comments[0]=$commentsList;
+			}
 		} else {
 			$comments=$commentsList;
 		}
+		
 		return Ranker::rank($comments);
 	}
 	

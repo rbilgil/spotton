@@ -39,7 +39,7 @@ class Queries
 		$date=new \DateTime();
 		$now=$date->getTimeStamp();
 		
-		if (strtotime($now) - strtotime($spot->time) < strtotime("1 minute")) {
+		if (strtotime($now) - strtotime($spot->time) > strtotime("1 minute")) {
 			return true;
 		}
 	}
