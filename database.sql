@@ -24,10 +24,9 @@ DROP TABLE IF EXISTS `comments`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `spot` int(11) NOT NULL,
-  `commment` varchar(140) NOT NULL,
-  `location` int(11) NOT NULL,
-  `spottons` int(11) DEFAULT NULL,
+  `spotID` int(11) NOT NULL,
+  `message` varchar(140) NOT NULL,
+  `rating` int(11) DEFAULT '0',
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -51,6 +50,7 @@ DROP TABLE IF EXISTS `locations`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniID` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `latitude` float(20,10) NOT NULL,
   `longitude` float(20,10) NOT NULL,
@@ -77,12 +77,12 @@ DROP TABLE IF EXISTS `spots`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `spots` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `commment` varchar(140) NOT NULL,
-  `location` int(11) NOT NULL,
-  `spottons` int(11) DEFAULT NULL,
+  `message` varchar(140) NOT NULL,
+  `locationID` int(11) NOT NULL,
+  `rating` int(11) DEFAULT '0',
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,31 @@ CREATE TABLE `spots` (
 
 LOCK TABLES `spots` WRITE;
 /*!40000 ALTER TABLE `spots` DISABLE KEYS */;
+INSERT INTO `spots` VALUES (1,'First Spot!',1,0,'2013-11-09 10:18:06'),(2,'First Spot!',1,0,'2013-11-09 10:18:27'),(3,'First Spot!',1,0,'2013-11-09 10:18:29');
 /*!40000 ALTER TABLE `spots` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `universities`
+--
+
+DROP TABLE IF EXISTS `universities`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `universities` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(140) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `universities`
+--
+
+LOCK TABLES `universities` WRITE;
+/*!40000 ALTER TABLE `universities` DISABLE KEYS */;
+/*!40000 ALTER TABLE `universities` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -103,4 +127,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-09  3:04:35
+-- Dump completed on 2013-11-09 10:38:50
