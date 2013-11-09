@@ -18,6 +18,36 @@ class LocationTest extends PHPUnit_Framework_TestCase
 		$this->lon=-1.3964298;
 	}
 
+	public function testGetUniversityList()
+	{
+		$location=new Location($this->lat, $this->lon);
+		$list=$location->getUniversityList();
+		
+		if (!is_array($list)) {
+			$l[0]=$list;
+		} else {
+			$l=$list;
+		}
+
+		$this->assertObjectHasAttribute('id', $l[0], 'University list not obtained correctly');
+		return $l[0];
+	}
+
+	public function testGetLocationList()
+	{
+		$unis=$this->testGetUniversityList();
+		$location=new Location($this->lat, $this->lon);
+		$list=$location->getLocationList($unis->id);
+
+		if (!is_array($list)) {
+			$l[0]=$list;
+		} else {
+			$l=$list;
+		}
+
+		$this->assertObjectHasAttribute('id', $l[0], 'Location list not obtained correctly');
+	}
+
 	public function testGetCurrentLocation()
 	{
 		$location=new Location($this->lat, $this->lon);

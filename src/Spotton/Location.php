@@ -60,7 +60,7 @@ class Location
 
 	public function getLocationList($universityID)
 	{
-		$query="SELECT * FROM locations WHERE universityID=:universityID";
+		$query="SELECT * FROM locations WHERE uniID=:universityID";
 		$bind=array(':universityID' => $universityID);
 
 		return Database::query($query, $bind);
