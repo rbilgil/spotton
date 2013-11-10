@@ -29,8 +29,8 @@ function addSpotDiv(s){
 	spot +=   '<div class="date">'+timeDiff(s.time)+'</div>';
 	spot +=   '<p>'+s.message+'</p>';
 	spot +=   '<div class="box-footer">';
-	spot += 	'<a href="#" class="btn-spot_on">Spott on!</a>';
-	spot += 	'<a href="#" class="upvote-count">'+s.rating+'</a>';
+	spot += 	'<a href="#" onclick="upVote('+s.id+');" class="btn-spot_on">Spott on!</a>';
+	spot += 	'<span class="upvote-count">'+s.rating+'</span>';
 	spot +=   '</div>';
 	spot += '</div>';
 	

@@ -9,7 +9,7 @@ $(function(){
 	}
 	
 	//Check for Uni Preference
-	if (localStorage.uniID){
+	/*if (localStorage.uniID){
 		//Check For Location Preference
 		if (localStorage.locID){
   			loadSpotts();
@@ -21,7 +21,9 @@ $(function(){
   		//Show Uni List
 		getUniList();
 		//getTop();
-	}
+	}*/
+	
+	loadSpotts();
 	
 });
 

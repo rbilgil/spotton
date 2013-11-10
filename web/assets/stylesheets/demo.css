@@ -1,6 +1,6 @@
 body {font-family: 'Roboto', sans-serif; font-size: 14px !important; text-align: left}
 /* thread */
-.single-box-thread{ margin: 0 auto;}
+.single-box-thread{ margin: 0 auto; background-position: 0 88px !important;}
 
 .single-box-thread textarea, .single-box-form textarea{ -webkit-appearance: initial; border: 1px solid #e1e1e1; width: 366px; height: 80px; font-style: oblique;}
 .single-box-thread button, .single-box-form button { border: none; width: 136px; background-repeat: no-repeat; height: 49px; text-indent: -999px; background-position: center; text-align: center; margin-left: 119px; margin-bottom: 15px; margin-top: 5px; background: url(../img/btn-post_now.png) no-repeat; cursor: pointer;}
@@ -27,7 +27,7 @@ margin: 10px 0.5% !important;
 text-align: left;
 background-image: url(../img/ft-box.png);
 background-repeat: repeat-x;
-background-position: 0px 108px;
+background-position: bottom;
 }
 
 .single-box span {
