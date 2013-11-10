@@ -1,6 +1,7 @@
 
 function showSpots(spots){
 	$("#page").html("");
+	spotN = 1;
 	spots = spots.spots;
 	if(spots.length !== undefined){
 		for(i=0;i<spots.length;i++){
@@ -14,9 +15,26 @@ function showSpots(spots){
 }
 
 var commentN = 0;
+var spotN = 1;
 function addSpotDiv(s){
 	countComments(s.id);
 	var spot = "";
+	var align = "";
+	if(spotN%2 == 1){
+		align = "single-box-left";
+	} else {
+		align = "single-box-right";
+	}
+	spot += '<div class="'+align+' single-box grid-50 mobile-grid-100">';
+	spot +=   '<div class="date">'+timeDiff(s.time)+'</div>';
+	spot +=   '<p>'+s.message+'</p>';
+	spot +=   '<div class="box-footer">';
+	spot += 	'<a href="#" class="btn-spot_on">Spott on!</a>';
+	spot += 	'<a href="#" class="upvote-count">'+s.rating+'</a>';
+	spot +=   '</div>';
+	spot += '</div>';
+	
+	/*
 	spot += '<div class="spot curve" id="'+s.id+'" data-time="'+s.time+'" data-ups="'+s.rating+'">';
 	spot += '<div class="msg curve" data-ups="'+s.rating+'">'+s.message+'</div>';
 	spot += '<div class="info">';
@@ -27,7 +45,9 @@ function addSpotDiv(s){
 	spot += '</div>';
 	spot += '<div class="arrow"></div>';
 	spot += '</div>';
+	*/
 	$("#page").append(spot);
+	spotN++;
 }
 
 function showUniList(list){
