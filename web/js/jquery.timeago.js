@@ -23,20 +23,20 @@
     factory(jQuery);
   }
 }(function ($) {
-  $.timeago = function(timestamp) {
+  $.fn.timeago = function(timestamp) {
     if (timestamp instanceof Date) {
       return inWords(timestamp);
     } else if (typeof timestamp === "string") {
-      return inWords($.timeago.parse(timestamp));
+      return inWords($.fn.timeago.parse(timestamp));
     } else if (typeof timestamp === "number") {
       return inWords(new Date(timestamp));
     } else {
-      return inWords($.timeago.datetime(timestamp));
+      return inWords($.fn.timeago.datetime(timestamp));
     }
   };
-  var $t = $.timeago;
+  var $t = $.fn.timeago;
 
-  $.extend($.timeago, {
+  $.extend($.fn.timeago, {
     settings: {
       refreshMillis: 60000,
       allowFuture: false,
