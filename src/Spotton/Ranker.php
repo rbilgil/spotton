@@ -3,16 +3,22 @@ namespace Spotton;
 
 class Ranker
 {
+    const RATING_WEIGHT=10;
+    const TIME_WEIGHT=3;
 	
 	public static function rank(array $array)
 	{
-		$scores=[];
+		$times=[];
 		foreach ($array as $stdobj) {
-			$stdobj->score=self::getScore($stdobj);
-			$scores[]=$stdobj->score;
+			$times[]=$stdobj->time;
 		}
-
-		array_multisort($scores, $array, SORT_NUMERIC);
+        $maxTime=max($times);
+        $scores=[];
+        foreach ($array as $stdobj) {
+            $stdobj->score=self::getScore($stdobj, $maxTime);
+            $scores[]=$stdobj->score;
+        }
+		array_multisort($scores, SORT_NUMERIC, $array);
 
 		return $array;
 	}
@@ -23,26 +29,17 @@ class Ranker
         foreach ($array as $stdobj) {
             $times[]=strtotime($stdobj->time);
         }
-        array_multisort($times, $array, SORT_NUMERIC);
+        array_multisort($times, SORT_NUMERIC, $array);
         
         return $array;
     }
 
-	public static function getScore(\stdClass $stdobj)
+	public static function getScore(\stdClass $stdobj, $maxTime)
 	{
 		$rating=$stdobj->rating;
-		$order=log(max($rating,1), 10);
-		
-		if ($rating > 0) {
-			$sign=1;
-		} else {
-			$sign=0;
-		}
-
-		$seconds=strtotime($stdobj->time);
-
-		$score=round($order * $sign * $seconds, 2);
-		return $score;
+        $time=$stdobj->time/$maxTime;
+		$score=$rating*self::RATING_WEIGHT - $time*self::TIME_WEIGHT;
+        return $score;
 	}
 
 }

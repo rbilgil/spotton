@@ -82,7 +82,7 @@ class Queries
 		$bind=array();
 
 		$spot = Database::query($query, $bind);
-		$spot->score=Ranker::getScore($spot);
+		$spot->score=Ranker::getScore($spot, $spot->time);
 		return $spot;
 
 	}
