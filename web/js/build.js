@@ -27,6 +27,7 @@ function addSpotDiv(s){
 	spot += '</div>';
 	spot += '<div class="arrow"></div>';
 	spot += '</div>';
+	spot += '<div id="spotPopup'+s.id+'">Hello</div>';
 	$("#page").append(spot);
 }
 
