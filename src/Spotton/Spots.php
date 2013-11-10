@@ -23,6 +23,8 @@ class Spots extends Queries
 		if (strlen($message) > self::CHAR_LIMIT) {
 			return false;
 		}
+
+		$universityID=$location->getUniversityID();
 		$locationID=$location->getLocationID();
 
 		$query = "INSERT INTO {$this->table} (message, locationID) VALUES (:message, :loc)";
@@ -30,7 +32,6 @@ class Spots extends Queries
 		$bind=array(':message' => $message, ':loc' => $locationID);
 
 		$result=Database::query($query, $bind);
-        
 		return $this->get($result->lastID);
 	}
 
