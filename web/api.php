@@ -123,8 +123,9 @@ $app->match("/deleteComment/{commentId}", function($commentId) use ($comments) {
 	return json_encode($result);
 });
 
-$app->post("/upVoteSpot/{spotID}", function($spotID) use ($spots) {
+$app->post("/upVoteSpot", function() use ($spots) {
     
+    $commentID=$_POST['commentID'];
     $uniqueID=$_POST['uniqueID'];
     
     $result=$spots->upVote($spotID, $uniqueID);
@@ -139,9 +140,10 @@ $app->post("/upVoteSpot/{spotID}", function($spotID) use ($spots) {
     return $resultMessage;
 });
 
-$app->post("/upVoteComment/{commentID}", function($commentID) use ($comments) {
+$app->post("/upVoteComment", function() use ($comments) {
     
-    $uniqueID=filter_var($_POST['uniqueID'], FILTER_SANITIZE_STRING);
+    $commentID=$_POST['commentID'];
+    $uniqueID=$_POST['uniqueID'];
     
     $result=$comments->upVote($commentID, $uniqueID);
     $resultMessage=new stdClass();
