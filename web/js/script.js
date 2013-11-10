@@ -31,7 +31,7 @@ function loadSpotts(){
 	validateLocation();
 	//Populate page with Top Spotts
 	$('#page').fadeOut('fast');
-	getLatest();
+	getTop();
 	$('#page').fadeIn('fast');
 }
 

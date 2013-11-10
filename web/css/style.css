@@ -3,7 +3,8 @@
 	display:none;
 	position:fixed;
 	bottom:40px;
-	left:40px;
+	right:40px;
+	overflow:hidden;
 }
 #form #newSpot{
 	width:200px;
@@ -14,7 +15,7 @@
 #form a:link, #form a:visited{
 	display:inline-block;
 	width:60px;
-	margin-left:20px;
+	margin-left:0px;
 	
 	line-height:60px;
 	vertical-align:middle;
@@ -37,19 +38,20 @@
 }
 .spot .msg {	
 	/*border: 1px solid #CCC;*/
+	width:100%;
+	background:#EEE;
+	padding:10px;
 }
 .spot .time{
 	font-size:9px;
 }
 .spot .info {
 	width:100%;
-	height:36px;
-	background:#EEE;
 	position:relative;
 }
 .spot .info > DIV{
 	display:inline-block;
-	padding:10px;
+	/*padding:10px;*/
 }
 .spot .info .rating{
 	position:absolute;
