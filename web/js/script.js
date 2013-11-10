@@ -69,7 +69,7 @@ function upVote(id){
 
 function toggleFilter(){
 	filterTop = !filterTop;
-	loadSpots();
+	loadSpotts();
 }
 
 function newUser(){
