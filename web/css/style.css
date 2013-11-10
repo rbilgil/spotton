@@ -5,6 +5,7 @@
 	bottom:40px;
 	right:40px;
 	overflow:hidden;
+	border:3px #FFF;
 }
 #form #newSpot{
 	width:200px;
