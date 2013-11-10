@@ -107,8 +107,8 @@ class Location
 
 	private function getLocation($locationID, $universityID)
 	{
-		$query="SELECT * from locations WHERE id=:id AND uniID=:uniID";
-		$bind=array(':id'=>$locationID, ':uniID' => $universityID);
+		$query="SELECT * from locations WHERE id=:id";
+		$bind=array(':id'=>$locationID);
 
 		return Database::query($query, $bind);
 	}
