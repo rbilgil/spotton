@@ -65,7 +65,7 @@ function setLayout(){
 }
 
 function submitSpot(){
-	var m = $("#newSpott").html();
+	var m = $("#newSpot").val();
 	if(m != ""){
 		addSpot(m);
 	}
