@@ -12,7 +12,7 @@ class Ranker
 			$scores[]=$stdobj->score;
 		}
 
-		array_multisort($scores, $array, SORT_ASC);
+		array_multisort($scores, $array, SORT_DESC);
 
 		return $array;
 	}
