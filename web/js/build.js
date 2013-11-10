@@ -89,7 +89,7 @@ function addLoc(l){
 }
 
 function timeDiff(timestamp){
-	return jQuery.timeago(timestamp);
+	return $.timeago(timestamp);
 	/*
 	var spotDate = new Date(timestamp);
 	var ms = (new Date())-spotDate;
