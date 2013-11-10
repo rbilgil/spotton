@@ -12,6 +12,7 @@
 	height:60px;
 	vertical-align:middle;
 	background:#DDD;
+	padding:10px;
 }
 #form a:link, #form a:visited{
 	display:inline-block;

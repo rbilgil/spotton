@@ -34,6 +34,7 @@ function addSpot(message){
 		message:message
 	},
 	function(data,status){
+		 $("#newSpot").val("");
 		loadSpotts();
 	});
 }
