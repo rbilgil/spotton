@@ -71,3 +71,7 @@ function submitSpot(){
 		addSpot(m);
 	}
 }
+
+function upVote(id){
+	
+}
