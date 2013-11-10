@@ -56,7 +56,7 @@ $app->post("/addSpot", function() use ($spots) {
 		$newMessage->StatusMsg="Location too far from target";
 		$newMessage->StatusCode=999;
 	}
-        $resultMessage=[];
+    $resultMessage=[];
 	$resultMessage["spots"][0]=$newMessage;
 	
 	return json_encode($resultMessage);
