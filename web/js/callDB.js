@@ -67,7 +67,7 @@ function rateSpot(id){
 }
 
 function rateComment(id){
-	$.get(url+"/rateSpot"+id,
+	$.get(url+"/rateComment"+id,
 	function(data,status){
 		alert("Data: " + data + "\nStatus: " + status);
 	});
@@ -89,7 +89,7 @@ function getTop(){
 function getLatest(){
 	var days = 3;
 	
-	$.post(url+"/getLatestSpots/"+days,
+	$.post(url+"/getLatest/"+days,
 	{
 		universityID:uniID,
 		locationID:locID
@@ -100,14 +100,14 @@ function getLatest(){
 }
 
 function countComments(spotID){
-	$.get(url+"/getComments/"+spotID,
+	$.get(url+"/getComment/"+spotID,
 	function(data,status){
 		commentN = JSON.parse(data).length;
 	});
 }
 
 function getComments(spotID){
-	$.get(url+"/getComments/"+spotID,
+	$.get(url+"/getComment/"+spotID,
 	function(data,status){
 		alert("Data: " + data + "\nStatus: " + status);
 	});

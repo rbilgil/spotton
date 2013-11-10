@@ -74,14 +74,14 @@ function timeDiff(timestamp){
 	if(mins < 1){
 		return "Just now";
 	} else if(mins < 60){
-		return Math.round(mins) + (mins==1?" min":" mins") + " ago";
+		return Math.round(mins) + (Math.round(mins)==1?" min":" mins") + " ago";
 	} else {
 		hours = mins/60;
 		if(hours < 24){
-			return Math.round(hours) + (hours==1?" hour":" hours") + " ago"
+			return Math.round(hours) + (Math.round(hours)==1?" hour":" hours") + " ago"
 		} else {
 			days = hours/24;
-			return Math.round(days) + (days==1?" day":" days") + " ago"
+			return Math.round(days) + (Math.round(days)==1?" day":" days") + " ago"
 		}
 	}
 }
