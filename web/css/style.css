@@ -36,7 +36,10 @@
 	margin:30px;
 }
 .spot .msg {	
-	border: 1px solid #CCC;
+	/*border: 1px solid #CCC;*/
+}
+.spot .time{
+	font-size:9px;
 }
 .spot .info {
 	width:100%;
