@@ -60,12 +60,14 @@ class CommentsTest extends PHPUnit_Framework_TestCase
 		
 		$previousVotes=$comment->rating;
 
-		$this->assertTrue($this->comments->upVote($comment->id));
+		$this->assertTrue($this->comments->upVote($comment->id,"SOMERANDOMID"));
 
 		$newComment=$this->comments->get($comment->id);
+        
 		$newVotes=$newComment->rating;
-
 		$this->assertEquals($newVotes-$previousVotes, 1);
+        
+        $this->assertFalse($this->comments->upVote($comment->id,"SOMERANDOMID"));
 	}
 
 	public function testGetAllRecent()

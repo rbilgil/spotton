@@ -57,13 +57,13 @@ class SpotsTest extends PHPUnit_Framework_TestCase
 		$spot=$this->createSpot();
 		
 		$previousVotes=$spot->rating;
-
-		$this->assertTrue($this->spots->upVote($spot->id));
-
+		$this->assertTrue($this->spots->upVote($spot->id,"SOMERANDOMID"));
+        
 		$newSpot=$this->spots->get($spot->id);
+        
 		$newVotes=$newSpot->rating;
-
 		$this->assertEquals($newVotes-$previousVotes, 1);
+        $this->assertFalse($this->spots->upVote($spot->id,"SOMERANDOMID"));
 	}
 
 	public function testGetAllRecent()

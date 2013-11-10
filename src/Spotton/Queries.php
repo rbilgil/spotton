@@ -49,12 +49,21 @@ class Queries
 	*	@param int $id The ID number of the Spot/Comment
 	*	@returns true or false depending on success/failure
 	*/
-	public function upVote($id)
+	public function upVote($id, $uniqueID)
 	{
+        $queryCheckPrevious = "SELECT * FROM upvoted{$this->table} WHERE id=:id AND userID=:uniqueID";
+        $bindUnique=array(':id' => $id, ':uniqueID' => $uniqueID);
+        
+        $previousUpvotesOnSamePost=Database::query($queryCheckPrevious, $bindUnique);
+        if (!isset($previousUpvotesOnSamePost->lastID) or $previousUpvotesOnSamePost->lastID!=0) {
+            return false;
+        }
+        
 		$query = "UPDATE {$this->table} SET rating = rating + 1 WHERE id=:id";
-		$bind=array(':id' => $id);
-
-		if (Database::query($query, $bind) !== false) {
+        $bind=array(':id' => $id);
+        
+        $queryUnique= "INSERT INTO upvoted{$this->table} (id, userID) VALUES (:id, :uniqueID)";
+		if (Database::query($query, $bind) !== false && Database::query($queryUnique, $bindUnique) !== false) {
 			return true;
 		} else {
 			return false;

@@ -85,7 +85,7 @@ $app->post("/addComment", function() use ($comments) {
 
 $app->match("/getSpot/{spotId}", function($spotId) {
 	$spot=new Spots();
-        $resultMessage=[];
+    $resultMessage=[];
 	$resultMessage["spots"][0]=$spot->get($spotId);
 	return json_encode($resultMessage);
 });
@@ -127,7 +127,7 @@ $app->post("/upVoteSpot/{$spotID}", function($spotID) use ($spots) {
     
     $uniqueID=$_POST['uniqueID'];
     
-    $result=$spots->upVote($spotID);
+    $result=$spots->upVote($spotID, $uniqueID);
     $resultMessage=new stdClass();
     
     if ($result !== false) {
@@ -143,7 +143,7 @@ $app->post("/upVoteComment/{$commentID}", function($commentID) use ($comments) {
     
     $uniqueID=filter_var($_POST['uniqueID'], FILTER_SANITIZE_STRING);
     
-    $result=$comments->upVote($commentID);
+    $result=$comments->upVote($commentID, $uniqueID);
     $resultMessage=new stdClass();
     
     if ($result !== false) {
