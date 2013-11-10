@@ -31,7 +31,7 @@ class Ranker
         }
         array_multisort($times, SORT_NUMERIC, $array);
         
-        return $array;
+        return array_reverse($array);
     }
 
 	public static function getScore(\stdClass $stdobj, $maxTime)
