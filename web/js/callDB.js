@@ -65,7 +65,7 @@ function rateSpot(id){
 	$.post(url+"/upVoteSpot",
 	{
 		spotID:id,
-		uniqueID:location.id
+		uniqueID:localStorage.id
 	},
 	function(data,status){
 		loadSpotts();
