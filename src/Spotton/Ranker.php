@@ -20,7 +20,7 @@ class Ranker
         }
 		array_multisort($scores, SORT_NUMERIC, $array);
 
-		return $array;
+		return array_reverse($array);
 	}
     
     public static function sortLatest(array $array) {
