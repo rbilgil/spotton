@@ -101,7 +101,7 @@ function getLatest(){
 		locationID:locID
 	},
 	function(data,status){
-		alert("Data: " + data + "\nStatus: " + status);
+		showSpots(JSON.parse(data));
 	});
 }
 

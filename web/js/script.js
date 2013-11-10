@@ -23,12 +23,6 @@ $(function(){
 		//getTop();
 	}
 	
-	
-	setLayout();
-	$(window).resize(function(){
-		setLayout();
-	});
-	
 });
 
 function loadSpotts(){
@@ -37,7 +31,7 @@ function loadSpotts(){
 	validateLocation();
 	//Populate page with Top Spotts
 	$('#page').fadeOut('fast');
-	getTop();
+	getLatest();
 	$('#page').fadeIn('fast');
 }
 
@@ -55,24 +49,6 @@ function selectLoc(id){
 	localStorage.locID = id;
 	//Load Location Spotts
 	loadSpotts();
-}
-
-function setLayout(){
-	/*
-	$(".msg").outerHeight(function(){
-		var minH = 40;
-		var maxH = 120;
-		var ups = Number($(this).attr("data-ups"));
-		return minH + ((ups>maxH)?maxH:ups);
-	});
-	
-	$(".spot").outerWidth(function(){
-		var minW = 130;
-		var maxW = 230;
-		var ups = Number($(this).attr("data-ups"));
-		return minW + ((ups>maxW)?maxW:ups);
-	});
-	*/
 }
 
 function submitSpot(){
