@@ -23,7 +23,6 @@ class Ranker
         foreach ($array as $stdobj) {
             $times[]=strtotime($stdobj->time);
         }
-        var_dump($times);
         array_multisort($times, $array, SORT_DESC);
         
         return $array;
