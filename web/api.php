@@ -30,8 +30,8 @@ $app->match("/getLocationList/{uniId}", function($uniId) use ($location) {
 $app->post("/addSpot", function() use ($spots) {
 
 	$message=$_POST["message"];
-	$lat=round($_POST["latitude"],4);
-	$lon=round($_POST["longitude"],4);
+	$lat=$_POST["latitude"];
+	$lon=$_POST["longitude"];
 	$locationID=$_POST["locationID"];
 	$universityID=$_POST["universityID"];
 
