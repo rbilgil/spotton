@@ -79,7 +79,10 @@ class Location
 		
 		$location=$this->getLocation($locationID, $universityID);
 		$distance=$this->calcDistFromUser($location);
+        echo "Distance: ".$distance;
+        echo "range: ". $location->distance;
 		$isInRange=$distance <= $location->distance;
+        var_dump($isInRange);
 		return $isInRange;
 	}
 
