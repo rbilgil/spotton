@@ -25,8 +25,9 @@ function addSpotDiv(s){
 	} else {
 		align = "single-box-right";
 	}
+	
 	spot += '<div class="'+align+' single-box grid-50 mobile-grid-100">';
-	spot +=   '<div class="date">'+timeDiff(s.time)+'</div>';
+	spot +=   '<div class="date" data-livestamp="'+s.time+'"></div>';
 	spot +=   '<p>'+s.message+'</p>';
 	spot +=   '<div class="box-footer">';
 	spot += 	'<a href="#" onclick="upVote('+s.id+');" class="btn-spot_on">Spott on!</a>';
