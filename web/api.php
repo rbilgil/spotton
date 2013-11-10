@@ -125,7 +125,7 @@ $app->match("/deleteComment/{commentId}", function($commentId) use ($comments) {
 
 $app->post("/upVoteSpot", function() use ($spots) {
     
-    $commentID=$_POST['commentID'];
+    $commentID=$_POST['spotID'];
     $uniqueID=$_POST['uniqueID'];
     
     $result=$spots->upVote($spotID, $uniqueID);
