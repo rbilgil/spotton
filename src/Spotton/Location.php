@@ -78,12 +78,12 @@ class Location
 		$this->universityID=$universityID;
 		
 		$location=$this->getLocation($locationID, $universityID);
-		$distance=$this->calcDistFromUser($location);
+		$distance=$this->getDistanceFromTarget($location);
 		$isInRange=$distance <= $location->distance;
 		return $isInRange;
 	}
 
-	private function calcDistFromUser(stdClass $location)
+	public function getDistanceFromTarget(stdClass $location)
 	{
 		//A way of calculating distance between two lat/lon coordinates using equirectangular projection approximation
 
@@ -104,7 +104,7 @@ class Location
 
 	private function getLocation($locationID, $universityID)
 	{
-		$query="SELECT * from locations WHERE id=:id AND UniID=:uniID";
+		$query="SELECT * from locations WHERE id=:id AND uniID=:uniID";
 		$bind=array(':id'=>$locationID, ':uniID' => $universityID);
 
 		return Database::query($query, $bind);
