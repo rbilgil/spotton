@@ -32,7 +32,7 @@ function addSpot(message){
 		message:message
 	},
 	function(data,status){
-		alert("Data: " + data + "\nStatus: " + status);
+		loadSpotts();
 	});
 }
 
@@ -62,9 +62,13 @@ function deleteComment(id){
 }
 
 function rateSpot(id){
-	$.get(url+"/rateSpot"+id,
+	$.post(url+"/upVoteSpot",
+	{
+		spotID:id,
+		uniqueID:location.id
+	},
 	function(data,status){
-		alert("Data: " + data + "\nStatus: " + status);
+		loadSpotts();
 	});
 }
 

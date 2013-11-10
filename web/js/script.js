@@ -4,6 +4,10 @@ var locID;
 
 $(function(){
 	
+	if(!localStorage.id){
+		newUser();
+	}
+	
 	//Check for Uni Preference
 	if (localStorage.uniID){
 		//Check For Location Preference
@@ -32,14 +36,18 @@ function loadSpotts(){
 	locID = Number(localStorage.locID);
 	validateLocation();
 	//Populate page with Top Spotts
+	$('$page').fadeOut('fast');
 	getTop();
+	$('$page').fadeIn('fast');
 }
 
 function selectUni(id){
 	//Save Uni Selection
 	localStorage.uniID = id;
 	//Load Uni Locations
+	$('$page').fadeOut('fast');
 	getLocList(id);
+	$('$page').fadeIn('fast');
 }
 
 function selectLoc(id){
@@ -73,5 +81,12 @@ function submitSpot(){
 }
 
 function upVote(id){
-	
+	rateSpot(id);
+}
+
+function newUser(){
+	location.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+						var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+						return v.toString(16);
+					});
 }
