@@ -35,9 +35,9 @@ function loadSpotts(){
 	//Populate page with Top Spotts
 	$('#page').fadeOut('fast');
 	if(filterTop){
-		getLatest();
-	} else {
 		getTop();
+	} else {
+		getLatest();
 	}
 }
 
