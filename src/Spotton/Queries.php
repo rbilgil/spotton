@@ -55,7 +55,7 @@ class Queries
         $bindUnique=array(':id' => $id, ':uniqueID' => $uniqueID);
         
         $previousUpvotesOnSamePost=Database::query($queryCheckPrevious, $bindUnique);
-        if (!isset($previousUpvotesOnSamePost->lastID) or $previousUpvotesOnSamePost->lastID!=0) {
+        if (!isset($previousUpvotesOnSamePost->lastID) or $previousUpvotesOnSamePost->lastID!=0 or $previousUpvotesOnSamePost===false) {
             return false;
         }
         

@@ -58,12 +58,12 @@ class Spots extends Queries
 		return Ranker::rank($spots);
 	}
         
-        public function getNumberOfComments($spotID)
-        {
-            $query = "SELECT * FROM {$this->table} WHERE spotID = :spotID";
-            $bind=array(':spotID' => $spotID);
-            
-            return count(Database::query($query, $bind));
-        }
+    public function getNumberOfComments($spotID)
+    {
+        $query = "SELECT * FROM {$this->table} WHERE spotID = :spotID";
+        $bind=array(':spotID' => $spotID);
+
+        return count(Database::query($query, $bind));
+    }
 	
 }
