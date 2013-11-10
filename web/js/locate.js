@@ -7,6 +7,7 @@ function GEOprocess(position) {
 	lat = position.coords.latitude;
 	lon = position.coords.longitude;
 	located = true;
+	validateLocation();
 }
 
 function GEOdeclined(error) {
