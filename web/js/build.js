@@ -89,22 +89,22 @@ function addLoc(l){
 }
 
 function timeDiff(timestamp){
-	return $.fn.timeago(timestamp);
-	/*
 	var spotDate = new Date(timestamp);
 	var ms = (new Date())-spotDate;
 	var mins = (ms/1000)/60;
 	if(mins < 1){
 		return "Just now";
 	} else if(mins < 60){
-		return Math.round(mins) + (Math.round(mins)==1?" min":" mins") + " ago";
+		mins = Math.round(parseFloat(mins));
+		return mins + (mins==1?" min":" mins") + " ago";
 	} else {
 		hours = mins/60;
 		if(hours < 24){
-			return Math.round(hours) + (Math.round(hours)==1?" hour":" hours") + " ago"
+			hours = Math.round(parseFloat(hours));
+			return hours + (hours==1?" hour":" hours") + " ago"
 		} else {
-			days = hours/24;
-			return Math.round(days) + (Math.round(days)==1?" day":" days") + " ago"
+			days = Math.round(parseFloat(hours/24));
+			return days + (days==1?" day":" days") + " ago"
 		}
-	}*/
+	}
 }
