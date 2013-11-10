@@ -16,6 +16,8 @@ function validateLocation(){
 			console.log(data);
 			if(JSON.parse(data).StatusCode=='0'){
 				$("#form").fadeIn();
+			} else {
+				$("#form").fadeOut();
 			}
 		});
 	}

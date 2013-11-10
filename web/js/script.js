@@ -28,11 +28,9 @@ $(function(){
 function loadSpotts(){
 	uniID = Number(localStorage.uniID);
 	locID = Number(localStorage.locID);
-	validateLocation();
 	//Populate page with Top Spotts
 	$('#page').fadeOut('fast');
 	getTop();
-	$('#page').fadeIn('fast');
 }
 
 function selectUni(id){
@@ -41,7 +39,6 @@ function selectUni(id){
 	//Load Uni Locations
 	$('#page').fadeOut('fast');
 	getLocList(id);
-	$('#page').fadeIn('fast');
 }
 
 function selectLoc(id){

@@ -9,7 +9,8 @@ function showSpots(spots){
 	} else {
 		addSpotDiv(spots);
 	}
-	setLayout();
+	$('#page').fadeIn('fast');
+	validateLocation();
 }
 
 var commentN = 0;
@@ -45,7 +46,7 @@ function addUni(u){
 	var option = "";
 	option += '<a href="#" onclick="selectUni('+u.id+'); return false;">'+u.name+'</a>';
 	$("#page").append(option);
-	setLayout();
+	$('#page').fadeIn('fast');
 }
 
 function showLocList(list){
@@ -64,7 +65,7 @@ function addLoc(l){
 	var option = "";
 	option += '<a href="#" onclick="selectLoc('+l.id+'); return false;">'+l.name+'</a>';
 	$("#page").append(option);
-	setLayout();
+	$('#page').fadeIn('fast');
 }
 
 function timeDiff(timestamp){
