@@ -17,7 +17,7 @@ function showSpots(spots){
 var commentN = 0;
 var spotN = 1;
 function addSpotDiv(s){
-	countComments(s.id);
+	//countComments(s.id);
 	var spot = "";
 	var align = "";
 	if(spotN%2 == 1){
