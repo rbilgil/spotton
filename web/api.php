@@ -125,7 +125,7 @@ $app->match("/deleteComment/{commentId}", function($commentId) use ($comments) {
 
 $app->post("/upVoteSpot/{$spotID}", function($spotID) use ($spots) {
     
-    $uniqueID=filter_var($_POST['uniqueID'], FILTER_SANITIZE_STRING);
+    $uniqueID=$_POST['uniqueID'];
     
     $result=$spots->upVote($spotID);
     $resultMessage=new stdClass();
@@ -157,7 +157,7 @@ $app->post("/upVoteComment/{$commentID}", function($commentID) use ($comments) {
 
 
 $app->post("/getLatest/{numDays}", function($numDays) use ($spots) {
-        $universityID=filter_input($_POST['universityID'], FILTER_VALIDATE_INT);
+    $universityID=$_POST['universityID'];
 	$resultMessage["spots"]=$spots->getAllRecent($universityID, $numDays);
 	return json_encode($resultMessage);
 });
@@ -181,10 +181,10 @@ $app->match("/getTopComments/{spotId}", function($spotId) use ($comments) {
 
 $app->post("/validateLocation", function() {
 	
-	$lat=filter_input($_POST["latitude"], FILTER_VALIDATE_FLOAT); 
-	$lon=filter_input($_POST["longitude"], FILTER_VALIDATE_FLOAT);
-	$locationID=filter_input($_POST["locationID"], FILTER_VALIDATE_INT);
-	$universityID=filter_input($_POST["universityID"], FILTER_VALIDATE_INT);
+	$lat=$_POST["latitude"];
+	$lon=$_POST["longitude"];
+	$locationID=$_POST["locationID"];
+	$universityID=$_POST["universityID"];
 
 	$location=new Location($lat, $lon);
 	$status=new stdClass();
