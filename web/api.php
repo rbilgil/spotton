@@ -29,11 +29,11 @@ $app->match("/getLocationList/{uniId}", function($uniId) use ($location) {
 
 $app->post("/addSpot", function() use ($spots) {
 
-	$message=filter_input($_POST["message"],FILTER_SANITIZE_STRING);
-	$lat=filter_input($_POST["latitude"], FILTER_VALIDATE_FLOAT); 
-	$lon=filter_input($_POST["longitude"], FILTER_VALIDATE_FLOAT);
-	$locationID=filter_input($_POST["locationID"], FILTER_VALIDATE_INT);
-	$universityID=filter_input($_POST["universityID"], FILTER_VALIDATE_INT);
+	$message=$_POST["message"];
+	$lat=$_POST["latitude"]; 
+	$lon=$_POST["longitude"];
+	$locationID=$_POST["locationID"];
+	$universityID=$_POST["universityID"];
 
 	$location = new Location($lat, $lon);
 
@@ -44,7 +44,7 @@ $app->post("/addSpot", function() use ($spots) {
 		if ($newMessage !== false) {
 			$newMessage->StatusCode=0;
 		} else {
-			$newMessage->StatusCode=403;
+			$newMessage->StatusCode=1;
 			$newMessage->StatusMsg="Message exceeds character length";
 		}
 
@@ -62,8 +62,8 @@ $app->post("/addSpot", function() use ($spots) {
 
 $app->post("/addComment", function() use ($comments) {
 
-	$message=filter_input($_POST["message"],FILTER_SANITIZE_STRING);
-	$spotID=filter_input($_POST["spotID"],FILTER_VALIDATE_INT);
+	$message=$_POST["message"],FILTER_SANITIZE_STRING);
+	$spotID=$_POST["spotID"],FILTER_VALIDATE_INT);
 
 	$newMessage = $comments->create($spotID, $message);
 
@@ -153,7 +153,7 @@ $app->post("/upVoteComment/{$commentID}", function($commentID) use ($comments) {
 
 
 $app->post("/getLatest/{numDays}", function($numDays) use ($spots) {
-        $universityID=filter_input($_POST['universityID'], FILTER_VALIDATE_INT);
+        $universityID=$_POST['universityID'], FILTER_VALIDATE_INT);
 	$resultMessage["spots"]=$spots->getAllRecent($universityID, $numDays);
 	return json_encode($resultMessage);
 });
@@ -177,10 +177,10 @@ $app->match("/getTopComments/{spotId}", function($spotId) use ($comments) {
 
 $app->post("/validateLocation", function() {
 	
-	$lat=filter_input($_POST["latitude"], FILTER_VALIDATE_FLOAT); 
-	$lon=filter_input($_POST["longitude"], FILTER_VALIDATE_FLOAT);
-	$locationID=filter_input($_POST["locationID"], FILTER_VALIDATE_INT);
-	$universityID=filter_input($_POST["universityID"], FILTER_VALIDATE_INT);
+	$lat=$_POST["latitude"], FILTER_VALIDATE_FLOAT); 
+	$lon=$_POST["longitude"], FILTER_VALIDATE_FLOAT);
+	$locationID=$_POST["locationID"], FILTER_VALIDATE_INT);
+	$universityID=$_POST["universityID"], FILTER_VALIDATE_INT);
 
 	$location=new Location($lat, $lon);
 	$status=new stdClass();

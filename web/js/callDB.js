@@ -1,5 +1,5 @@
 
-var url = "http://www.spotton.co/web/api.php";
+var url = "/api.php";
 
 function validateLocation(){
 	if(located){
