@@ -137,7 +137,7 @@ $app->post("/upVoteSpot", function() use ($spots) {
         $resultMessage->StatusMsg="Couldn't upvote";
         $resultMessage->StatusCode=999;
     }
-    return $resultMessage;
+    return json_encode($resultMessage);
 });
 
 $app->post("/upVoteComment", function() use ($comments) {
@@ -154,7 +154,7 @@ $app->post("/upVoteComment", function() use ($comments) {
         $resultMessage->StatusMsg="Couldn't upvote";
         $resultMessage->StatusCode=999;
     }
-    return $resultMessage;
+    return json_encode($resultMessage);
 });
 
 
