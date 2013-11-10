@@ -6,6 +6,13 @@ var filterTop = true;
 
 $(function(){
 	
+	
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(GEOprocess, GEOdeclined);
+	} else {
+		alert('Your browser sucks. Upgrade it.');
+	}
+	
 	if(!localStorage.id){
 		newUser();
 	}
@@ -30,8 +37,10 @@ $(function(){
 });
 
 function loadSpotts(){
-	uniID = Number(localStorage.uniID);
-	locID = Number(localStorage.locID);
+	//uniID = Number(localStorage.uniID);
+	//locID = Number(localStorage.locID);
+	uniID = 1;
+	locID = 1;
 	//Populate page with Top Spotts
 	$('#page').fadeOut('fast');
 	if(filterTop){
