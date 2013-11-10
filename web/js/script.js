@@ -58,6 +58,7 @@ function selectLoc(id){
 }
 
 function setLayout(){
+	/*
 	$(".msg").outerHeight(function(){
 		var minH = 40;
 		var maxH = 120;
@@ -71,6 +72,7 @@ function setLayout(){
 		var ups = Number($(this).attr("data-ups"));
 		return minW + ((ups>maxW)?maxW:ups);
 	});
+	*/
 }
 
 function submitSpot(){
