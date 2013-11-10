@@ -34,7 +34,11 @@ function loadSpotts(){
 	locID = Number(localStorage.locID);
 	//Populate page with Top Spotts
 	$('#page').fadeOut('fast');
-	getTop();
+	if(filterTop){
+		getLatest();
+	} else {
+		getTop();
+	}
 }
 
 function selectUni(id){
@@ -64,15 +68,8 @@ function upVote(id){
 }
 
 function toggleFilter(){
-	if(filterTop){
-		$('#page').fadeOut('fast');
-		getLatest();
-		filterTop = false;
-	} else {
-		$('#page').fadeOut('fast');
-		getTop();
-		filterTop = true;
-	}
+	filterTop = !filterTop;
+	loadSpots();
 }
 
 function newUser(){
