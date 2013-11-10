@@ -121,7 +121,7 @@ function getUniList(){
 }
 
 function getLocList(){
-	//uniID = Number(localStorage.uniID);
+	uniID = Number(localStorage.uniID);
 	$.get(url+"/getLocationList/"+uniID,
 	function(data,status){
 		showLocList(JSON.parse(data));

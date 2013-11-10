@@ -37,16 +37,14 @@ function loadSpotts(){
 
 function selectUni(id){
 	//Save Uni Selection
-	//localStorage.uniID = id;
-		uniID = id;
+	localStorage.uniID = id;
 	//Load Uni Locations
 	getLocList(id);
 }
 
 function selectLoc(id){
 	//Save Location Selection
-	//localStorage.locID = id;
-		locID = id;
+	localStorage.locID = id;
 	//Load Location Spotts
 	loadSpotts();
 }
