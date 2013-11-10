@@ -16,8 +16,8 @@ var commentN = 0;
 function addSpotDiv(s){
 	countComments(s.id);
 	var spot = "";
-	spot += '<div class="spot curve" id="'+s.id+'" data-time="'+s.time+'" data-score="'+s.score+'">';
-	spot += '<div class="msg" data-score="'+s.score+'">'+s.message+'</div>';
+	spot += '<div class="spot curve" id="'+s.id+'" data-time="'+s.time+'" data-ups="'+s.rating+'">';
+	spot += '<div class="msg" data-ups="'+s.rating+'">'+s.message+'</div>';
 	spot += '<div class="time">'+timeDiff(s.time)+'</div>';
 	spot += '<div class="info">';
 		spot += '<div class="upVote" onclick="upVote('+s.id+');">Spott';
