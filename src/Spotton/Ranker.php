@@ -16,6 +16,18 @@ class Ranker
 
 		return $array;
 	}
+    
+    public static function sortLatest(array $array) {
+        $times=[];
+        
+        foreach ($array as $stdobj) {
+            $times[]=strtotime($stdobj->time);
+        }
+        var_dump($times);
+        array_multisort($times, $array, SORT_DESC);
+        
+        return $array;
+    }
 
 	public static function getScore(\stdClass $stdobj)
 	{

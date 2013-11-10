@@ -48,7 +48,7 @@ class Spots extends Queries
 		$query = "SELECT * FROM {$this->table} WHERE time >= :timePeriod";
 		$bind=array(':timePeriod' => $daysAgo);
 
-		return Database::query($query, $bind);
+		return Ranker::sortLatest(Database::query($query, $bind));
 	}
 
 	public function getAllTop($universityID, $numDays)

@@ -1,0 +1,128 @@
+
+#form{
+	display:none;
+	position:absolute;
+	bottom:40px;
+	left:40px;
+}
+#form #newSpot{
+	width:200px;
+	height:60px;
+	vertical-align:middle;
+	background:#DDD;
+}
+#form a:link, #form a:visited{
+	display:inline-block;
+	width:60px;
+	margin-left:20px;
+	
+	line-height:60px;
+	vertical-align:middle;
+	
+	color:#FFF;
+	background:#444;
+}#form a:hover, #form a:active{
+	background:#000;
+}
+
+#page{
+	width:100%;
+	height:100%;
+}
+
+.spot{
+	width:auto;
+	float:left;
+	margin:30px;
+}
+.spot .msg {	
+	/*border: 1px solid #CCC;*/
+}
+.spot .time{
+	font-size:9px;
+}
+.spot .info {
+	width:100%;
+	height:36px;
+	background:#EEE;
+	position:relative;
+}
+.spot .info > DIV{
+	display:inline-block;
+	padding:10px;
+}
+.spot .info .rating{
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+.spot .info .upVote {
+	float:left;
+}
+.spot .info .commentNum{
+	float:right;
+}
+
+
+/*//////////////////////////////////
+// GENERAL STYLING
+//////////////////////////////////*/
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	text-decoration:none;
+	font-weight: normal;
+	
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+input,
+select,
+textarea,
+button {
+	border:none;
+	
+	-webkit-transition: border-color .2s ease;
+    -moz-transition: border-color .2s ease;
+    -o-transition: border-color .2s ease;
+    transition: border-color .2s ease;
+}
+
+a:link, a:visited {
+	
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+    text-decoration: none;
+	
+	color:#000;
+	
+
+	text-align:center;
+	position: relative;
+	
+	-webkit-transition: color .2s ease, top .07s linear, padding-left .1s linear;
+    -moz-transition: color .2s ease, top .07s linear, padding-left .1s linear;
+    -o-transition: color .2s ease, top .07s linear, padding-left .1s linear;
+    transition: color .2s ease, top .07s linear, padding-left .1s linear;
+}
+a:hover, a:active{
+	color:#000;
+	background:#000;
+}
+
+.curve{
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius:3px;
+}

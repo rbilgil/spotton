@@ -77,7 +77,7 @@ $app->post("/addComment", function() use ($comments) {
 		$newMessage->StatusCode=403;
 		$newMessage->StatusMsg="Message exceeds character length";
 	}
-        $resultMessage=[];
+    $resultMessage=[];
 	$resultMessage["comments"][0]=$newMessage;
 	
 	return json_encode($resultMessage);
@@ -92,7 +92,7 @@ $app->match("/getSpot/{spotId}", function($spotId) {
 
 $app->match("/getComment/{commentId}", function($commentId) use ($comments) {
 
-        $resultMessage=[];
+    $resultMessage=[];
 	$resultMessage["comments"][0]=$comments->get($commentId);
 	return json_encode($resultMessage);
 });
