@@ -61,15 +61,15 @@ function setLayout(){
 	$(".msg").outerHeight(function(){
 		var minH = 40;
 		var maxH = 120;
-		var score = Number($(this).attr("data-score"));
-		return minH + ((score>maxH)?maxH:score);
+		var ups = Number($(this).attr("data-ups"));
+		return minH + ((ups>maxH)?maxH:ups);
 	});
 	
 	$(".spot").outerWidth(function(){
 		var minW = 130;
 		var maxW = 230;
-		var score = Number($(this).attr("data-score"));
-		return minW + ((score>maxW)?maxW:score);
+		var ups = Number($(this).attr("data-ups"));
+		return minW + ((ups>maxW)?maxW:ups);
 	});
 }
 
