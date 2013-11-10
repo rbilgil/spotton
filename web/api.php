@@ -45,7 +45,7 @@ $app->post("/addSpot", function() use ($spots) {
 		if ($newMessage !== false) {
 			$newMessage->StatusCode=0;
 		} else {
-			$newMessage->StatusCode=403;
+			$newMessage->StatusCode=999;
 			$newMessage->StatusMsg="Message exceeds character length";
 		}
 
