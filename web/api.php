@@ -123,7 +123,7 @@ $app->match("/deleteComment/{commentId}", function($commentId) use ($comments) {
 	return json_encode($result);
 });
 
-$app->post("/upVoteSpot/{$spotID}", function($spotID) use ($spots) {
+$app->post("/upVoteSpot/{spotID}", function($spotID) use ($spots) {
     
     $uniqueID=$_POST['uniqueID'];
     
@@ -139,7 +139,7 @@ $app->post("/upVoteSpot/{$spotID}", function($spotID) use ($spots) {
     return $resultMessage;
 });
 
-$app->post("/upVoteComment/{$commentID}", function($commentID) use ($comments) {
+$app->post("/upVoteComment/{commentID}", function($commentID) use ($comments) {
     
     $uniqueID=filter_var($_POST['uniqueID'], FILTER_SANITIZE_STRING);
     
