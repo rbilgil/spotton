@@ -13,6 +13,7 @@ function validateLocation(){
 		function(data,status){
 			//IF TRUE: 
 			//	FADE IN SPOTT FORM
+			console.log(data);
 			if(JSON.parse(data).StatusCode=='0'){
 				$("#form").fadeIn();
 			}
