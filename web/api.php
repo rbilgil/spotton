@@ -29,11 +29,11 @@ $app->match("/getLocationList/{uniId}", function($uniId) use ($location) {
 
 $app->post("/addSpot", function() use ($spots) {
 
-	$message=filter_input($_POST["message"],FILTER_SANITIZE_STRING);
-	$lat=filter_input($_POST["latitude"], FILTER_VALIDATE_FLOAT); 
-	$lon=filter_input($_POST["longitude"], FILTER_VALIDATE_FLOAT);
-	$locationID=filter_input($_POST["locationID"], FILTER_VALIDATE_INT);
-	$universityID=filter_input($_POST["universityID"], FILTER_VALIDATE_INT);
+	$message=$_POST["message"];
+	$lat=$_POST["latitude"];
+	$lon=$_POST["longitude"];
+	$locationID=$_POST["locationID"];
+	$universityID=$_POST["universityID"];
 
 	$location = new Location($lat, $lon);
 
