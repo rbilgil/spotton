@@ -21,6 +21,7 @@ function validateLocation(){
 }
 
 function addSpot(message){
+	console.log(lat+" "+lon+" "+uniID+" "+locID+" "+message);
 	$.post(url+"/addSpot",
 	{
 		latitude:lat,
