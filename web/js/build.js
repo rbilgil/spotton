@@ -89,6 +89,8 @@ function addLoc(l){
 }
 
 function timeDiff(timestamp){
+	return jQuery.timeago(timestamp);
+	/*
 	var spotDate = new Date(timestamp);
 	var ms = (new Date())-spotDate;
 	var mins = (ms/1000)/60;
@@ -104,5 +106,5 @@ function timeDiff(timestamp){
 			days = hours/24;
 			return Math.round(days) + (Math.round(days)==1?" day":" days") + " ago"
 		}
-	}
+	}*/
 }
