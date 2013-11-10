@@ -12,7 +12,7 @@ class Ranker
 			$scores[]=$stdobj->score;
 		}
 
-		array_multisort($scores, $array, SORT_DESC);
+		array_multisort($scores, $array, SORT_NUMERIC);
 
 		return $array;
 	}
@@ -23,7 +23,7 @@ class Ranker
         foreach ($array as $stdobj) {
             $times[]=strtotime($stdobj->time);
         }
-        array_multisort($times, $array, SORT_DESC);
+        array_multisort($times, $array, SORT_NUMERIC);
         
         return $array;
     }
