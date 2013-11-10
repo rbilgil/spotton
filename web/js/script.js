@@ -56,6 +56,7 @@ function setLayout(){
 		var score = Number($(this).attr("data-score"));
 		return minH + ((score>maxH)?maxH:score);
 	});
+	
 	$(".spot").outerWidth(function(){
 		var minW = 130;
 		var maxW = 230;
