@@ -40,7 +40,8 @@ $app->post("/addSpot", function() use ($spots) {
 	if ($location->inRange($locationID, $universityID)) {
 
 		$newMessage = $spots->create($message, $location);
-
+        $newMessage->lat=$lat;
+        $newMessage->lon=$lon;
 		if ($newMessage !== false) {
 			$newMessage->StatusCode=0;
 		} else {
