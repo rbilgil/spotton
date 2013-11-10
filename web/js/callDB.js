@@ -5,8 +5,8 @@ function validateLocation(){
 	if(located){
 		$.post(url+"/validateLocation",
 		{
-			lat:lat,
-			lon:lon,
+			latitude:lat,
+			longitude:lon,
 			universityID:uniID,
 			locationID:locID
 		},
