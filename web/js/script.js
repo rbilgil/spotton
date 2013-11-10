@@ -30,7 +30,7 @@ $(function(){
 function loadSpotts(){
 	uniID = Number(localStorage.uniID);
 	locID = Number(localStorage.locID);
-	validateLocation();
+	//validateLocation();
 	//Populate page with Top Spotts
 	getTop();
 }
