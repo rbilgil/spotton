@@ -12,7 +12,7 @@ class Ranker
 			$scores[]=$stdobj->score;
 		}
 
-		array_multisort($scores, $array, SORT_DESC);
+		array_multisort($scores, $array, SORT_ASC);
 
 		return $array;
 	}
@@ -39,9 +39,9 @@ class Ranker
 			$sign=0;
 		}
 
-		$seconds=strtotime($stdobj->time) - 113402800;
+		$seconds=strtotime($stdobj->time);
 
-		$score=round($order + $sign * $seconds, 2);
+		$score=round($order * $sign * $seconds, 2);
 		return $score;
 	}
 
