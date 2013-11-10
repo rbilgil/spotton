@@ -6,9 +6,9 @@ var filterTop = true;
 
 $(function(){
 	
-	
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(GEOprocess, GEOdeclined);
+		validateLocation();
 	} else {
 		alert('Your browser sucks. Upgrade it.');
 	}
