@@ -2,6 +2,8 @@
 var uniID;
 var locID;
 
+var filterTop = true;
+
 $(function(){
 	
 	if(!localStorage.id){
@@ -59,6 +61,18 @@ function submitSpot(){
 
 function upVote(id){
 	rateSpot(id);
+}
+
+function toggleFilter(){
+	if(filterTop){
+		$('#page').fadeOut('fast');
+		getLatest();
+		filterTop = false;
+	} else {
+		$('#page').fadeOut('fast');
+		getTop();
+		filterTop = true;
+	}
 }
 
 function newUser(){
