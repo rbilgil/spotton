@@ -79,7 +79,6 @@ class Location
 		
 		$location=$this->getLocation($locationID, $universityID);
 		$distance=$this->getDistanceFromTarget($location);
-        echo "range of target location: ".$location->distance;
 		$isInRange=$distance <= $location->distance;
 		return $isInRange;
 	}

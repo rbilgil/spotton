@@ -66,8 +66,8 @@ $app->post("/addSpot", function() use ($spots) {
 
 $app->post("/addComment", function() use ($comments) {
 
-	$message=filter_input($_POST["message"],FILTER_SANITIZE_STRING);
-	$spotID=filter_input($_POST["spotID"],FILTER_VALIDATE_INT);
+	$message=$_POST["message"];
+	$spotID=$_POST["spotID"];
 
 	$newMessage = $comments->create($spotID, $message);
 
